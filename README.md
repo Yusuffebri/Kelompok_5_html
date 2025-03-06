@@ -1,4 +1,4 @@
-# 🌟 Travel Lovindra Kelompok 5🌟
+# Travel Lovindra||Kelompok 5
 
 ## 📂 Daftar Isi Folder
 - **File html** 📄
@@ -30,9 +30,12 @@ For detailed documentation, refer to the files linked below (written in Indonesi
 
 ## 📝 Deskripsi
 This repository is the collaborative work of **Kelompok 5** for the **Travel Lovindra Kelompok 5**. It includes:
-- 📌 Fitur index login.
-- 📌 Fitur katalog.
-- 📌 Fitur menu utama.
+- 📌 Fitur index login
+- bagian dari sistem yang memungkinkan pengguna untuk masuk ke dalam aplikasi atau platform. 
+- 📌 Fitur katalog
+- bagian dari aplikasi atau platform yang menampilkan daftar produk, layanan, atau konten yang tersedia.
+- 📌 Fitur menu utama
+-  navigasi utama dalam aplikasi atau platform yang memudahkan pengguna untuk mengakses berbagai bagian dari sistem.
   
 
 We hope this repository provides a clear understanding of our project. 😊
