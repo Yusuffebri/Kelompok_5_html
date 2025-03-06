@@ -38,7 +38,7 @@ This repository is the collaborative work of **Kelompok 5** for the **Travel Lov
 -  navigasi utama dalam aplikasi atau platform yang memudahkan pengguna untuk mengakses berbagai bagian dari sistem.
   
 
-We hope this repository provides a clear understanding of our project. 😊
+We trust that you will find this repository informative and useful in grasping our project. 😊
 
 ---
 
