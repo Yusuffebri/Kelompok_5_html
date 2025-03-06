@@ -23,8 +23,8 @@ For detailed documentation, refer to the files linked below (written in Indonesi
 ## 🤝 Contributors
 | Contributor       | GitHub Profile                                  |
 |-------------------|------------------------------------------------|
-| **Anissa**  | [🌐 Profile](https://github.com/anissa) |
-| **Diandra**      | [🌐 Profile](https://github.com/Diandra)    |
+| **Anissa567**  | [🌐 Profile](https://github.com/anissa567) |
+| **Diandra1005**      | [🌐 Profile](https://github.com/Diandra1005)    |
 
 ---
 
