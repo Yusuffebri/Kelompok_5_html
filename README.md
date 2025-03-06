@@ -1,45 +1,39 @@
-# 🌟 UAS Kelompok 2 🌟
+# 🌟 Travel Lovindra Kelompok 5🌟
 
 ## 📂 Daftar Isi Folder
-- **Dokumen UAS** 📄
-  - 📘 Dokumentasi Awal Proyek Pengembangan Basis Data Toko Risky Bawang dan Palawija.pdf
-  - 📙 Fitur Database[1].pdf
-  - 📗 LAPORAN TUGAS UAS kelompok 2.pdf
-  - 📕 MANUAL PENGGUNAAN SISTEM MANAJEMEN.pdf
+- **File html** 📄
+  - 📘 Index login.html
+  - 📙 katalog.html
+  - 📗 menu-utama.html
+  - 
 - **Folder Basic** 📁
-  - 🔧 Codingan composer
-
----
-
-## Tech Stack
-![Database](https://img.shields.io/badge/database-MySQL-green) ![Framework](https://img.shields.io/badge/framework-Yii2-blue) ![Language](https://img.shields.io/badge/language-PHP-blue) ![Environment](https://img.shields.io/badge/environment-XAMPP-orange) ![Dependencies](https://img.shields.io/badge/dependencies-Composer-yellow)
-
+  - 🔧 Codingan visual studio code
 ---
 
 ## Documentation
 For detailed documentation, refer to the files linked below (written in Indonesian):
 
-- 📘 [Dokumen Awal Proyek](#)
-- 📙 [Fitur Basis Data](#)
-- 📗 [Laporan Tugas UAS](#)
-- 📕 [Manual Penggunaan Sistem](#)
+- 📘 [index login.html](#)
+- 📙 [katalog.html](#)
+- 📗 [menu-utama.html](#)
+
 
 ---
 
 ## 🤝 Contributors
 | Contributor       | GitHub Profile                                  |
 |-------------------|------------------------------------------------|
-| **Adia Sandra**  | [🌐 Profile](https://github.com/sandraalmeera) |
-| **Yessica**      | [🌐 Profile](https://github.com/yesicafapa)    |
+| **Anissa**  | [🌐 Profile](https://github.com/anissa) |
+| **Diandra**      | [🌐 Profile](https://github.com/Diandra)    |
 
 ---
 
 ## 📝 Deskripsi
-This repository is the collaborative work of **Kelompok 2** for the **UAS Project**. It includes:
-- 📌 Initial project documentation.
-- 📌 Database features.
-- 📌 Group project report.
-- 📌 System usage manual.
+This repository is the collaborative work of **Kelompok 5** for the **Travel Lovindra Kelompok 5**. It includes:
+- 📌 Fitur index login.
+- 📌 Fitur katalog.
+- 📌 Fitur menu utama.
+  
 
 We hope this repository provides a clear understanding of our project. 😊
 
@@ -48,7 +42,7 @@ We hope this repository provides a clear understanding of our project. 😊
 ## 🚀 How to Use
 1. Clone this repository locally:
    ```bash
-   git clone https://github.com/AbidRafiul/UAS_Kelompok2.git
+   git clone https://github.com/Yusuffebri/Kelompok_5_html.git
    ```
-2. Open the document files in the "Dokumen UAS" folder.
+2. Open the document files in the "Travel Lovindra Kelompok 5" folder.
 3. Follow the system usage manual for further information.
