@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transportasi - Travel Lovindra</title>
+    <link rel="icon" type="image/png" href="image/Logo.jpeg" sizes="16x16">
+    <style>
+        * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         }
+         
+         body {
+             background-color: #f5f5f5;
+         }
+         
+         .navbar {
+             background-color: #2a5298;
+             padding: 15px 50px;
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+             position: sticky;
+             top: 0;
+             z-index: 100;
+         }
+         
+         .logo {
+             display: flex;
+             align-items: center;
+             color: white;
+             font-size: 24px;
+             font-weight: bold;
+         }
+         
+         .logo img {
+             width: 40px;
+             margin-right: 10px;
+         }
+         
+         .nav-links {
+             display: flex;
+             gap: 20px;
+         }
+         
+         .nav-links a {
+             color: white;
+             text-decoration: none;
+             font-weight: 500;
+             transition: color 0.3s;
+         }
+         
+         .nav-links a:hover {
+             color: #a3c2ff;
+         }
+         
+         .catalog-header {
+             background-color: #2a5298;
+             color: white;
+             padding: 50px;
+             text-align: center;
+         }
+         
+         .catalog-header h1 {
+             font-size: 36px;
+             margin-bottom: 20px;
+         }
+         
+         .catalog-header p {
+             font-size: 18px;
+             max-width: 800px;
+             margin: 0 auto;
+         }
+         
+         .filter-section {
+             background-color: white;
+             padding: 20px 50px;
+             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+         }
+         
+         .filter-container {
+             display: flex;
+             gap: 20px;
+             align-items: center;
+             justify-content: center;
+             flex-wrap: wrap;
+         }
+         
+         .filter-group {
+             display: flex;
+             flex-direction: column;
+         }
+         
+         .filter-group label {
+             margin-bottom: 5px;
+             font-weight: 500;
+             color: #555;
+         }
+         
+         .filter-group select, .filter-group input {
+             padding: 10px;
+             border: 1px solid #ddd;
+             border-radius: 5px;
+             min-width: 200px;
+         }
+         
+         .filter-button {
+             background-color: #2a5298;
+             color: white;
+             border: none;
+             padding: 10px 20px;
+             border-radius: 5px;
+             cursor: pointer;
+             transition: background-color 0.3s;
+             margin-top: 24px;
+         }
+         
+         .filter-button:hover {
+             background-color: #1e3c72;
+         }
+         
+         .catalog-container {
+             padding: 50px;
+             display: flex;
+             flex-wrap: wrap;
+             gap: 30px;
+             justify-content: center;
+         }
+         
+         .vehicle-card {
+             background-color: white;
+             border-radius: 10px;
+             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+             width: 350px;
+             overflow: hidden;
+             transition: transform 0.3s;
+         }
+         
+         .vehicle-card:hover {
+             transform: translateY(-10px);
+         }
+         
+         .vehicle-card img {
+             width: 100%;
+             height: 200px;
+             object-fit: cover;
+         }
+         
+         .vehicle-card .content {
+             padding: 20px;
+         }
+         
+         .vehicle-card h3 {
+             color: #2a5298;
+             margin-bottom: 10px;
+             font-size: 20px;
+         }
+         
+         .vehicle-card .specs {
+             margin-bottom: 15px;
+         }
+         
+         .vehicle-card .spec {
+             display: flex;
+             align-items: center;
+             margin-bottom: 5px;
+             color: #555;
+         }
+         
+         .vehicle-card .spec img {
+             width: 20px;
+             height: 20px;
+             margin-right: 10px;
+         }
+         
+         .vehicle-card .price {
+             color: #2a5298;
+             font-weight: bold;
+             font-size: 20px;
+             margin-bottom: 15px;
+         }
+         
+         .book-button {
+             background-color: #2a5298;
+             color: white;
+             border: none;
+             padding: 10px 20px;
+             border-radius: 5px;
+             cursor: pointer;
+             transition: background-color 0.3s;
+             width: 100%;
+             font-size: 16px;
+         }
+         
+         .book-button:hover {
+             background-color: #1e3c72;
+         }
+         
+         .pagination {
+             display: flex;
+             justify-content: center;
+             gap: 10px;
+             margin: 30px 0;
+         }
+         
+         .pagination button {
+             padding: 10px 15px;
+             border: 1px solid #2a5298;
+             background-color: white;
+             color: #2a5298;
+             border-radius: 5px;
+             cursor: pointer;
+             transition: all 0.3s;
+         }
+         
+         .pagination button.active, .pagination button:hover {
+             background-color: #2a5298;
+             color: white;
+         }
+         
+         footer {
+             background-color: #2a5298;
+             color: white;
+             padding: 50px;
+             text-align: center;
+         }
+         
+         footer p {
+             margin-top: 20px;
+         }
+     </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Travel Lovindra</h1>
+        </div>
+        <div class="nav-links">
+            <a href="menu-utama.html">Beranda</a>
+            <a href="katalog.html" class="active">Transportasi</a>
+            <a href="Destinasi.html">Destinasi</a>
+            <a href="Tentang Kami.html">Tentang kami</a>
+            <a href="index.html">Logout</a>
+        </div>
+    </nav>
+
+    <header class="catalog-header">
+        <h1>Transportasi</h1>
+        <p>Temukan kendaraan yang sesuai dengan kebutuhan perjalanan Anda</p>
+    </header>
+
+    <section class="catalog-container">
+        <div class="vehicle-card">
+            <img src="image/toyota avanza.jpeg" alt="Toyota Avanza">
+            <div class="content">
+                <h3>Toyota Avanza</h3>
+                <div class="specs">
+                    <div class="spec">
+                        <alt="Kapasitas">
+                        Kapasitas: 7 Orang
+                    </div>
+                    <div class="spec">
+                        <alt="AC">
+                        AC: Aktif
+                    </div>
+                    <div class="spec">
+                        <alt="Bagasi">
+                        Bagasi: Cukup untuk 3-4 koper
+                    </div>
+                </div>
+                <div class="price">Rp 500.000/hari</div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="vehicle-card">
+            <img src="image/toyota Hiace.jpeg" alt="Toyota Hiace">
+            <div class="content">
+                <h3>Toyota Hiace</h3>
+                <div class="specs">
+                    <div class="spec">
+                        <alt="Kapasitas">
+                        Kapasitas: 15 Orang
+                    </div>
+                    <div class="spec">
+                        <alt="AC">
+                        AC: Aktif
+                    </div>
+                    <div class="spec">
+                        <alt="Bagasi">
+                        Bagasi: Luas untuk banyak koper
+                    </div>
+                </div>
+                <div class="price">Rp 1.200.000/hari</div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="vehicle-card">
+            <img src="image/Toyota Alphard Hybrid.jpeg" alt="Toyota Alphard">
+            <div class="content">
+                <h3>Toyota Alphard</h3>
+                <div class="specs">
+                    <div class="spec">
+                        <alt="Kapasitas">
+                        Kapasitas: 7 Orang
+                    </div>
+                    <div class="spec">
+                        <alt="AC">
+                        AC: Aktif
+                    </div>
+                    <div class="spec">
+                        <alt="Bagasi">
+                        Bagasi: Cukup untuk 4 koper
+                    </div>
+                </div>
+                <div class="price">Rp 2.000.000/hari</div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="vehicle-card">
+            <img src="image/isuzu.jpeg" alt="Isuzu Elf">
+            <div class="content">
+                <h3>Isuzu Elf</h3>
+                <div class="specs">
+                    <div class="spec">
+                        <alt="Kapasitas">
+                        Kapasitas: 20 Orang
+                    </div>
+                    <div class="spec">
+                        <alt="AC">
+                        AC: Aktif
+                    </div>
+                    <div class="spec">
+                        <alt="Bagasi">
+                        Bagasi: Luas untuk banyak koper
+                    </div>
+                </div>
+                <div class="price">Rp 1.500.000/hari</div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="vehicle-card">
+            <img src="image/brio.jpeg" alt="Honda Brio">
+            <div class="content">
+                <h3>Honda Brio</h3>
+                <div class="specs">
+                    <div class="spec">
+                        <alt="Kapasitas">
+                        Kapasitas: 4 Orang
+                    </div>
+                    <div class="spec">
+                        <alt="AC">
+                        AC: Aktif
+                    </div>
+                    <div class="spec">
+                        <alt="Bagasi">
+                        Bagasi: Cukup untuk 2 koper
+                    </div>
+                </div>
+                <div class="price">Rp 350.000/hari</div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="vehicle-card">
+            <img src="image/Bus.jpeg" alt="Bus Pariwisata">
+            <div class="content">
+                <h3>Bus Pariwisata</h3>
+                <div class="specs">
+                    <div class="spec">
+                        <alt="Kapasitas">
+                        Kapasitas: 50 Orang
+                    </div>
+                    <div class="spec">
+                        <alt="AC">
+                        AC: Aktif
+                    </div>
+                    <div class="spec">
+                        <alt="Bagasi">
+                        Bagasi: Bagasi besar di bawah bus
+                    </div>
+                </div>
+                <div class="price">Rp 3.500.000/hari</div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookButtons = document.querySelectorAll('.book-button');
+            
+            bookButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const vehicleName = button.getAttribute('data-vehicle');
+                    const vehiclePrice = button.getAttribute('data-price');
+                    
+                    localStorage.setItem('selectedVehicle', vehicleName);
+                    localStorage.setItem('vehiclePrice', vehiclePrice);
+                    
+                    window.location.href = 'pemesanan.html';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
