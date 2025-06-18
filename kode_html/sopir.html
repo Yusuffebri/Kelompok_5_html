@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Input Sopir</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #2a5298;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        h1,
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-section,
+        .catalog-container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1e3c72;
+        }
+
+        .driver-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+            max-width: 400px;
+            margin: 20px;
+        }
+
+        .driver-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .driver-card .content {
+            padding: 20px;
+        }
+
+        .driver-card h3 {
+            margin: 0 0 10px;
+            color: #2a5298;
+        }
+
+        .driver-card .details {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .driver-card .specialties {
+            margin-bottom: 10px;
+        }
+
+        .specialty {
+            display: inline-block;
+            background: #e6f0ff;
+            color: #2a5298;
+            padding: 5px 10px;
+            margin: 3px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .catalog-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Manajemen Sopir</h1>
+        <p>Admin dapat menambahkan data sopir baru di bawah ini</p>
+    </header>
+
+    <section class="form-section">
+        <h2>Form Tambah Sopir</h2>
+        <form id="formSopir">
+            <input type="text" id="namaSopir" placeholder="Nama Sopir" required>
+            <input type="text" id="pengalaman" placeholder="Pengalaman (cth: 10 tahun)" required>
+            <input type="text" id="bahasa" placeholder="Bahasa (cth: Indonesia, Inggris)" required>
+            <input type="text" id="keahlian" placeholder="Keahlian (cth: Wisata Budaya Bali)" required>
+            <input type="text" id="rating" placeholder="Rating (cth: ★★★★★ 4.8)" required>
+            <input type="text" id="gambar" placeholder="Path Gambar (cth: image/sopir1.jpg)" required>
+            <input type="text" id="tag" placeholder="Tag Lokasi (cth: Bali)" required>
+            <br>
+            <button type="submit">Tambah Sopir</button>
+        </form>
+    </section>
+
+    <section class="catalog-container" id="driverContainer">
+        <!-- Kartu sopir akan ditambahkan di sini -->
+    </section>
+
+    <script>
+        document.getElementById("formSopir").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const nama = document.getElementById("namaSopir").value;
+            const pengalaman = document.getElementById("pengalaman").value;
+            const bahasa = document.getElementById("bahasa").value;
+            const keahlian = document.getElementById("keahlian").value;
+            const rating = document.getElementById("rating").value;
+            const gambar = document.getElementById("gambar").value;
+            const tag = document.getElementById("tag").value;
+
+            const container = document.getElementById("driverContainer");
+            const card = document.createElement("div");
+            card.className = "driver-card";
+
+            card.innerHTML = `
+        <img src="${gambar}" alt="${nama}">
+        <div class="content">
+          <h3>${nama}</h3>
+          <div class="details">
+            Pengalaman: ${pengalaman}<br>
+            Bahasa: ${bahasa}<br>
+            Keahlian: ${keahlian}
+          </div>
+          <div class="details">Rating: ${rating}</div>
+          <div class="specialties">
+            <span class="specialty">${tag}</span>
+          </div>
+        </div>
+      `;
+
+            container.appendChild(card);
+            this.reset();
+        });
+    </script>
+</body>
+
+</html>

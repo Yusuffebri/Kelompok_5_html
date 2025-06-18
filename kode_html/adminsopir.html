@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Input Sopir</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #2a5298;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-section {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #1e3c72;
+        }
+
+        .driver-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 20px;
+            width: 300px;
+            transition: transform 0.3s;
+        }
+
+        .driver-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .driver-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .driver-card .content {
+            padding: 20px;
+        }
+
+        .driver-card h3 {
+            margin: 0 0 10px;
+            color: #2a5298;
+        }
+
+        .driver-card .details {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .driver-card .rating {
+            margin-bottom: 10px;
+        }
+
+        .specialty {
+            display: inline-block;
+            background: #e6f0ff;
+            color: #2a5298;
+            padding: 5px 10px;
+            margin: 3px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .catalog-container {
+            padding: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .edit-button, .delete-button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+
+        .edit-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        #editForm {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Manajemen Sopir</h1>
+        <p>Admin dapat menambahkan data sopir baru di bawah ini</p>
+    </header>
+
+    <section class="admin-form">
+        <h2>Form Tambah Sopir</h2>
+        <div id="successMessage" class="success-message">Data sopir berhasil disimpan!</div>
+        <form id="formSopir">
+            <input type="hidden" id="sopirId">
+            <input type="text" id="namaSopir" placeholder="Nama Sopir" required>
+            <input type="text" id="pengalaman" placeholder="Pengalaman (cth: 10 tahun)" required>
+            <input type="text" id="bahasa" placeholder="Bahasa (cth: Indonesia, Inggris)" required>
+            <input type="text" id="keahlian" placeholder="Keahlian (cth: Wisata Budaya Bali)" required>
+            <input type="text" id="rating" placeholder="Rating (cth: ★★★★★ 4.8)" required>
+            <input type="text" id="gambar" placeholder="Path Gambar (cth: image/sopir1.jpg)" required>
+            <input type="text" id="tag" placeholder="Tag Lokasi (cth: Bali)" required>
+            <br>
+            <button type="submit" id="submitBtn">Tambah Sopir</button>
+            <button type="button" id="cancelBtn" style="display: none; background-color: #f44336;">Batal</button>
+        </form>
+    </section>
+
+    <section class="catalog-container" id="driverContainer">
+        <!-- Kartu sopir akan ditambahkan di sini -->
+    </section>
+
+    <script>
+        // Fungsi untuk mendapatkan data sopir dari localStorage
+        function getDriversFromStorage() {
+            const drivers = localStorage.getItem('dataSopir');
+            return drivers ? JSON.parse(drivers) : [];
+        }
+
+        // Fungsi untuk menyimpan data sopir ke localStorage
+        function saveDriversToStorage(drivers) {
+            localStorage.setItem('dataSopir', JSON.stringify(drivers));
+        }
+
+        // Fungsi untuk menampilkan kartu sopir
+        function displayDriverCard(driver, index) {
+            const container = document.getElementById("driverContainer");
+            const card = document.createElement("div");
+            card.className = "driver-card";
+            card.setAttribute("data-id", index);
+
+            card.innerHTML = `
+                <img src="${driver.gambar}" alt="${driver.nama}">
+                <div class="content">
+                    <h3>${driver.nama}</h3>
+                    <div class="details">
+                        Pengalaman: ${driver.pengalaman}<br>
+                        Bahasa: ${driver.bahasa}<br>
+                        Keahlian: ${driver.keahlian}
+                    </div>
+                    <div class="rating">Rating: ${driver.rating}</div>
+                    <div class="specialties">
+                        <span class="specialty">${driver.tag}</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="edit-button" onclick="editDriver(${index})">Edit</button>
+                        <button class="delete-button" onclick="deleteDriver(${index})">Hapus</button>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(card);
+        }
+
+        // Fungsi untuk menampilkan semua sopir
+        function displayAllDrivers() {
+            const container = document.getElementById("driverContainer");
+            container.innerHTML = '';
+            
+            const drivers = getDriversFromStorage();
+            drivers.forEach((driver, index) => {
+                displayDriverCard(driver, index);
+            });
+        }
+
+        // Fungsi untuk mengedit data sopir
+        function editDriver(index) {
+            const drivers = getDriversFromStorage();
+            const driver = drivers[index];
+            
+            document.getElementById("sopirId").value = index;
+            document.getElementById("namaSopir").value = driver.nama;
+            document.getElementById("pengalaman").value = driver.pengalaman;
+            document.getElementById("bahasa").value = driver.bahasa;
+            document.getElementById("keahlian").value = driver.keahlian;
+            document.getElementById("rating").value = driver.rating;
+            document.getElementById("gambar").value = driver.gambar;
+            document.getElementById("tag").value = driver.tag;
+            
+            document.getElementById("submitBtn").textContent = "Update Sopir";
+            document.getElementById("cancelBtn").style.display = "inline-block";
+            
+            // Scroll to form
+            document.querySelector(".form-section").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Fungsi untuk menghapus data sopir
+        function deleteDriver(index) {
+            if (confirm("Apakah Anda yakin ingin menghapus data sopir ini?")) {
+                const drivers = getDriversFromStorage();
+                drivers.splice(index, 1);
+                saveDriversToStorage(drivers);
+                displayAllDrivers();
+                
+                showSuccessMessage("Data sopir berhasil dihapus!");
+            }
+        }
+
+        // Fungsi untuk menampilkan pesan sukses
+        function showSuccessMessage(message) {
+            const successMessage = document.getElementById("successMessage");
+            successMessage.textContent = message;
+            successMessage.style.display = "block";
+            
+            setTimeout(function() {
+                successMessage.style.display = "none";
+            }, 3000);
+        }
+
+        // Fungsi untuk membatalkan edit
+        document.getElementById("cancelBtn").addEventListener("click", function() {
+            document.getElementById("formSopir").reset();
+            document.getElementById("sopirId").value = "";
+            document.getElementById("submitBtn").textContent = "Tambah Sopir";
+            this.style.display = "none";
+        });
+
+        // Event listener untuk form submission
+        document.getElementById("formSopir").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            const newDriver = {
+                nama: document.getElementById("namaSopir").value,
+                pengalaman: document.getElementById("pengalaman").value,
+                bahasa: document.getElementById("bahasa").value,
+                keahlian: document.getElementById("keahlian").value,
+                rating: document.getElementById("rating").value,
+                gambar: document.getElementById("gambar").value,
+                tag: document.getElementById("tag").value
+            };
+            
+            const driverId = document.getElementById("sopirId").value;
+            const drivers = getDriversFromStorage();
+            
+            if (driverId === "") {
+                // Tambah sopir baru
+                drivers.push(newDriver);
+                showSuccessMessage("Data sopir berhasil ditambahkan!");
+            } else {
+                // Update sopir yang ada
+                drivers[driverId] = newDriver;
+                document.getElementById("submitBtn").textContent = "Tambah Sopir";
+                document.getElementById("cancelBtn").style.display = "none";
+                showSuccessMessage("Data sopir berhasil diperbarui!");
+            }
+            
+            saveDriversToStorage(drivers);
+            displayAllDrivers();
+            this.reset();
+            document.getElementById("sopirId").value = "";
+        });
+
+        // Memuat semua data sopir saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            displayAllDrivers();
+        });
+    </script>
+</body>
+
+</html>

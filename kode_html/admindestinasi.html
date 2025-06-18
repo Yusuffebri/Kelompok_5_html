@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Destinasi - Travel Lovindra</title>
+    <link rel="icon" type="image/png" href="image/Logo.jpeg" sizes="16x16">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background-color: #2a5298;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .destination-header {
+            background-color: #2a5298;
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .admin-form {
+            padding: 30px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        .admin-form h2 {
+            color: #2a5298;
+            margin-bottom: 20px;
+        }
+
+        .admin-form input {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 250px;
+        }
+
+        .admin-form button {
+            padding: 10px 20px;
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .admin-form button:hover {
+            background-color: #1e3c72;
+        }
+
+        .destination-container {
+            padding: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .destination-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .destination-card .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .destination-card h3 {
+            color: #2a5298;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .destination-card .price {
+            margin-bottom: 15px;
+        }
+
+        .view-button {
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="destination-header">
+        <h1>Destinasi Wisata</h1>
+        <p>Temukan tempat-tempat menarik untuk perjalanan Anda</p>
+    </header>
+
+    <section class="admin-form">
+        <h2>Tambah Destinasi Baru</h2>
+        <form id="formDestinasi">
+            <input type="text" id="namaDestinasi" placeholder="Nama Destinasi" required>
+            <input type="text" id="hargaDestinasi" placeholder="Harga (cth: Rp 3.000.000/Orang)" required>
+            <input type="text" id="linkDestinasi" placeholder="Link Halaman Detail" required>
+            <input type="text" id="gambarDestinasi" placeholder="Path Gambar (cth: image/bali.jpeg)" required>
+            <br>
+            <button type="submit">Tambah Destinasi</button>
+        </form>
+    </section>
+
+    <section class="destination-container" id="destinationContainer">
+        <div class="destination-card">
+            <img src="image/malang.jpeg">
+            <div class="content">
+                <h3>Paket Wisata Malang</h3>
+                <div class="price">Rp 3.500.000/Orang</div>
+                <a href="paket malang.html" class="view-button">Lihat Detail</a>
+            </div>
+        </div>
+        <div class="destination-card">
+            <img src="image/bali.jpeg">
+            <div class="content">
+                <h3>Paket Wisata Bali</h3>
+                <div class="price">Rp 5.000.000/Orang</div>
+                <a href="paket bali.html" class="view-button">Lihat Detail</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById("formDestinasi").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const nama = document.getElementById("namaDestinasi").value;
+            const harga = document.getElementById("hargaDestinasi").value;
+            const link = document.getElementById("linkDestinasi").value;
+            const gambar = document.getElementById("gambarDestinasi").value;
+
+            const container = document.getElementById("destinationContainer");
+
+            const card = document.createElement("div");
+            card.className = "destination-card";
+
+            card.innerHTML = `
+                <img src="${gambar}" alt="${nama}">
+                <div class="content">
+                    <h3>${nama}</h3>
+                    <div class="price">${harga}</div>
+                    <a href="${link}" class="view-button">Lihat Detail</a>
+                </div>
+            `;
+
+            container.appendChild(card);
+            this.reset();
+        });
+    </script>
+</body>
+
+</html>

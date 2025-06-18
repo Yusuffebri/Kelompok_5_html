@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin Transportasi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2a5298;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+        }
+
+        .menu-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .menu-item {
+            flex: 1;
+            min-width: 200px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item h2 {
+            color: #2a5298;
+            margin-top: 0;
+        }
+
+        .menu-item i {
+            font-size: 48px;
+            color: #2a5298;
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        button[type="submit"], .back-btn {
+            padding: 10px 20px;
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover, .back-btn:hover {
+            background-color: #1e3c72;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .error-message {
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        /* Ikon menu */
+        .fas {
+            display: block;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <h1>Dashboard Administrator</h1>
+        <p>Kelola data transportasi, destinasi, dan sopir</p>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="menu-container">
+            <div class="menu-item" id="menuTransportasi">
+                <i class="fas fa-bus"></i>
+                <div class="nav-links">
+                    <a href="admintransportasi.html"><h2>Admin Transportasi</h2></a>
+                <p>Kelola data kendaraan dan armada</p>
+            </div>
+            <div class="menu-item" id="menuDestinasi">
+                <i class="fas fa-map-marked-alt"></i>
+                <div class="nav-links">
+                    <a href="admindestinasi.html"><h2>Admin Destinasi</h2></a>
+                <p>Kelola data tujuan wisata</p>
+            </div>
+            <div class="menu-item" id="menuSopir">
+                <i class="fas fa-user-tie"></i>
+                <div class="nav-links">
+                <a href="adminsopir.html"><h2>Admin Sopir</h2></a>
+                <p>Kelola data pengemudi</p>
+            </div>
+            <div class="menu-item" id="menuKembali">
+                <i class="fas fa-home"></i>
+                <div class="nav-links">
+                    <a href="menu-utama.html"><h2>Kembali</h2></a>
+                <p>Kembali ke halaman utama</p>
+            </div>
+        </div>
+
+        <!-- Setiap section akan ditampilkan sesuai menu yang dipilih -->
+        
+        <!-- Section Transportasi -->
+        <div class="content-section hidden" id="sectionTransportasi">
+            <h2>Kelola Data Transportasi</h2>
+            <div id="successMessageTransport" class="success-message">Berhasil menyimpan data!</div>
+            <div id="errorMessageTransport" class="error-message">Gagal menyimpan data!</div>
+            
+            <form id="formTransportasi">
+                <input type="hidden" id="transportId">
+                <input type="text" id="namaKendaraan" placeholder="Nama Kendaraan" required>
+                <input type="text" id="kapasitas" placeholder="Kapasitas (cth: 7 Orang)" required>
+                <input type="text" id="bagasi" placeholder="Bagasi (cth: Cukup untuk 4 koper)" required>
+                <input type="text" id="ac" placeholder="AC (cth: Aktif)" required>
+                <input type="text" id="harga" placeholder="Harga (cth: Rp 500.000/hari)" required>
+                <input type="text" id="gambar" placeholder="Path Gambar (cth: image/avanza.jpg)" required>
+                <button type="submit" id="submitTransportasi">Simpan Data</button>
+                <button type="button" id="cancelEditTransport" style="display:none; background-color: #f44336;">Batal Edit</button>
+            </form>
+
+            <h3>Daftar Kendaraan</h3>
+            <table id="tabelTransportasi">
+                <thead>
+                    <tr>
+                        <th>Nama Kendaraan</th>
+                        <th>Kapasitas</th>
+                        <th>Bagasi</th>
+                        <th>AC</th>
+                        <th>Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="daftarTransportasi">
+                    <!-- Data akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section Destinasi -->
+        <div class="content-section hidden" id="sectionDestinasi">
+            <h2>Kelola Data Destinasi</h2>
+            <div id="successMessageDestinasi" class="success-message">Berhasil menyimpan data!</div>
+            <div id="errorMessageDestinasi" class="error-message">Gagal menyimpan data!</div>
+            
+            <form id="formDestinasi">
+                <input type="hidden" id="destinasiId">
+                <input type="text" id="namaDestinasi" placeholder="Nama Destinasi" required>
+                <input type="text" id="lokasiDestinasi" placeholder="Lokasi" required>
+                <input type="text" id="deskripsiDestinasi" placeholder="Deskripsi singkat" required>
+                <input type="text" id="hargaDestinasi" placeholder="Harga tiket (cth: Rp 25.000/orang)" required>
+                <input type="text" id="gambarDestinasi" placeholder="Path Gambar (cth: image/pantai.jpg)" required>
+                <button type="submit" id="submitDestinasi">Simpan Data</button>
+                <button type="button" id="cancelEditDestinasi" style="display:none; background-color: #f44336;">Batal Edit</button>
+            </form>
+
+            <h3>Daftar Destinasi</h3>
+            <table id="tabelDestinasi">
+                <thead>
+                    <tr>
+                        <th>Nama Destinasi</th>
+                        <th>Lokasi</th>
+                        <th>Deskripsi</th>
+                        <th>Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="daftarDestinasi">
+                    <!-- Data akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section Sopir -->
+        <div class="content-section hidden" id="sectionSopir">
+            <h2>Kelola Data Sopir</h2>
+            <div id="successMessageSopir" class="success-message">Berhasil menyimpan data!</div>
+            <div id="errorMessageSopir" class="error-message">Gagal menyimpan data!</div>
+            
+            <form id="formSopir">
+                <input type="hidden" id="sopirId">
+                <input type="text" id="namaSopir" placeholder="Nama Sopir" required>
+                <input type="text" id="usiaSopir" placeholder="Usia" required>
+                <input type="text" id="pengalamanSopir" placeholder="Pengalaman (cth: 5 tahun)" required>
+                <input type="text" id="teleponSopir" placeholder="No. Telepon" required>
+                <input type="text" id="gambarSopir" placeholder="Path Foto (cth: image/sopir.jpg)" required>
+                <button type="submit" id="submitSopir">Simpan Data</button>
+                <button type="button" id="cancelEditSopir" style="display:none; background-color: #f44336;">Batal Edit</button>
+            </form>
+
+            <h3>Daftar Sopir</h3>
+            <table id="tabelSopir">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Usia</th>
+                        <th>Pengalaman</th>
+                        <th>No. Telepon</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="daftarSopir">
+                    <!-- Data akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal Konfirmasi Hapus -->
+        <div id="modalKonfirmasi" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Konfirmasi Hapus</h3>
+                <p id="pesanKonfirmasi">Apakah Anda yakin ingin menghapus data ini?</p>
+                <button id="konfirmasiHapus" style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">Hapus</button>
+                <button id="batalHapus" style="background-color: #ccc; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inisialisasi penyimpanan lokal jika belum ada
+        function initStorage() {
+            if (!localStorage.getItem('katalogKendaraan')) {
+                localStorage.setItem('katalogKendaraan', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('katalogDestinasi')) {
+                localStorage.setItem('katalogDestinasi', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('katalogSopir')) {
+                localStorage.setItem('katalogSopir', JSON.stringify([]));
+            }
+        }
+
+        // Fungsi navigasi menu
+        function setupMenuNavigation() {
+            // Menampilkan section sesuai menu yang diklik
+            document.getElementById('menuTransportasi').addEventListener('click', function() {
+                hideAllSections();
+                document.getElementById('sectionTransportasi').classList.remove('hidden');
+                loadTransportasiData();
+            });
+
+            document.getElementById('menuDestinasi').addEventListener('click', function() {
+                hideAllSections();
+                document.getElementById('sectionDestinasi').classList.remove('hidden');
+                loadDestinasiData();
+            });
+
+            document.getElementById('menuSopir').addEventListener('click', function() {
+                hideAllSections();
+                document.getElementById('sectionSopir').classList.remove('hidden');
+                loadSopirData();
+            });
+
+            document.getElementById('menuKembali').addEventListener('click', function() {
+                // Redirect ke halaman utama
+                window.location.href = "index.html";
+            });
+        }
+
+        // Sembunyikan semua section
+        function hideAllSections() {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+        }
+
+        // FUNGSI UNTUK TRANSPORTASI
+        function loadTransportasiData() {
+            const transportasi = JSON.parse(localStorage.getItem('katalogKendaraan') || '[]');
+            const tableBody = document.getElementById('daftarTransportasi');
+            tableBody.innerHTML = '';
+
+            transportasi.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.nama}</td>
+                    <td>${item.kapasitas}</td>
+                    <td>${item.bagasi}</td>
+                    <td>${item.ac}</td>
+                    <td>${item.harga}</td>
+                    <td class="action-buttons">
+                        <button class="edit-btn" data-index="${index}">Edit</button>
+                        <button class="delete-btn" data-index="${index}">Hapus</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Tambahkan event listener untuk tombol edit dan hapus
+            setupTransportasiActionButtons();
+        }
+
+        function setupTransportasiActionButtons() {
+            // Tombol Edit
+            document.querySelectorAll('#daftarTransportasi .edit-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    editTransportasi(index);
+                });
+            });
+
+            // Tombol Hapus
+            document.querySelectorAll('#daftarTransportasi .delete-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    showDeleteConfirmation('transportasi', index);
+                });
+            });
+        }
+
+        function editTransportasi(index) {
+            const transportasi = JSON.parse(localStorage.getItem('katalogKendaraan') || '[]');
+            const item = transportasi[index];
+            
+            // Isi form dengan data yang akan diedit
+            document.getElementById('transportId').value = index;
+            document.getElementById('namaKendaraan').value = item.nama;
+            document.getElementById('kapasitas').value = item.kapasitas;
+            document.getElementById('bagasi').value = item.bagasi;
+            document.getElementById('ac').value = item.ac;
+            document.getElementById('harga').value = item.harga;
+            document.getElementById('gambar').value = item.gambar;
+            
+            // Tampilkan tombol batal edit
+            document.getElementById('cancelEditTransport').style.display = 'inline-block';
+            document.getElementById('submitTransportasi').textContent = 'Update Data';
+        }
+
+        function cancelEditTransportasi() {
+            // Reset form dan sembunyikan tombol batal
+            document.getElementById('formTransportasi').reset();
+            document.getElementById('transportId').value = '';
+            document.getElementById('cancelEditTransport').style.display = 'none';
+            document.getElementById('submitTransportasi').textContent = 'Simpan Data';
+        }
+
+        function saveTransportasi(event) {
+            event.preventDefault();
+            
+            const transportId = document.getElementById('transportId').value;
+            const newItem = {
+                nama: document.getElementById('namaKendaraan').value,
+                kapasitas: document.getElementById('kapasitas').value,
+                bagasi: document.getElementById('bagasi').value,
+                ac: document.getElementById('ac').value,
+                harga: document.getElementById('harga').value,
+                gambar: document.getElementById('gambar').value
+            };
+            
+            const transportasi = JSON.parse(localStorage.getItem('katalogKendaraan') || '[]');
+            
+            try {
+                if (transportId === '') {
+                    // Tambah baru
+                    transportasi.push(newItem);
+                } else {
+                    // Update yang sudah ada
+                    transportasi[transportId] = newItem;
+                }
+                
+                localStorage.setItem('katalogKendaraan', JSON.stringify(transportasi));
+                
+                // Reset form
+                document.getElementById('formTransportasi').reset();
+                document.getElementById('transportId').value = '';
+                document.getElementById('cancelEditTransport').style.display = 'none';
+                document.getElementById('submitTransportasi').textContent = 'Simpan Data';
+                
+                // Tampilkan pesan sukses
+                const successMsg = document.getElementById('successMessageTransport');
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 3000);
+                
+                // Refresh tabel
+                loadTransportasiData();
+            } catch (error) {
+                const errorMsg = document.getElementById('errorMessageTransport');
+                errorMsg.style.display = 'block';
+                setTimeout(() => {
+                    errorMsg.style.display = 'none';
+                }, 3000);
+                console.error('Error saving data:', error);
+            }
+        }
+
+        function deleteTransportasi(index) {
+            const transportasi = JSON.parse(localStorage.getItem('katalogKendaraan') || '[]');
+            transportasi.splice(index, 1);
+            localStorage.setItem('katalogKendaraan', JSON.stringify(transportasi));
+            loadTransportasiData();
+        }
+
+        // FUNGSI UNTUK DESTINASI
+        function loadDestinasiData() {
+            const destinasi = JSON.parse(localStorage.getItem('katalogDestinasi') || '[]');
+            const tableBody = document.getElementById('daftarDestinasi');
+            tableBody.innerHTML = '';
+
+            destinasi.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.nama}</td>
+                    <td>${item.lokasi}</td>
+                    <td>${item.deskripsi}</td>
+                    <td>${item.harga}</td>
+                    <td class="action-buttons">
+                        <button class="edit-btn" data-index="${index}">Edit</button>
+                        <button class="delete-btn" data-index="${index}">Hapus</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Tambahkan event listener untuk tombol edit dan hapus
+            setupDestinasiActionButtons();
+        }
+
+        function setupDestinasiActionButtons() {
+            // Tombol Edit
+            document.querySelectorAll('#daftarDestinasi .edit-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    editDestinasi(index);
+                });
+            });
+
+            // Tombol Hapus
+            document.querySelectorAll('#daftarDestinasi .delete-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    showDeleteConfirmation('destinasi', index);
+                });
+            });
+        }
+
+        function editDestinasi(index) {
+            const destinasi = JSON.parse(localStorage.getItem('katalogDestinasi') || '[]');
+            const item = destinasi[index];
+            
+            // Isi form dengan data yang akan diedit
+            document.getElementById('destinasiId').value = index;
+            document.getElementById('namaDestinasi').value = item.nama;
+            document.getElementById('lokasiDestinasi').value = item.lokasi;
+            document.getElementById('deskripsiDestinasi').value = item.deskripsi;
+            document.getElementById('hargaDestinasi').value = item.harga;
+            document.getElementById('gambarDestinasi').value = item.gambar;
+            
+            // Tampilkan tombol batal edit
+            document.getElementById('cancelEditDestinasi').style.display = 'inline-block';
+            document.getElementById('submitDestinasi').textContent = 'Update Data';
+        }
+
+        function cancelEditDestinasi() {
+            // Reset form dan sembunyikan tombol batal
+            document.getElementById('formDestinasi').reset();
+            document.getElementById('destinasiId').value = '';
+            document.getElementById('cancelEditDestinasi').style.display = 'none';
+            document.getElementById('submitDestinasi').textContent = 'Simpan Data';
+        }
+
+        function saveDestinasi(event) {
+            event.preventDefault();
+            
+            const destinasiId = document.getElementById('destinasiId').value;
+            const newItem = {
+                nama: document.getElementById('namaDestinasi').value,
+                lokasi: document.getElementById('lokasiDestinasi').value,
+                deskripsi: document.getElementById('deskripsiDestinasi').value,
+                harga: document.getElementById('hargaDestinasi').value,
+                gambar: document.getElementById('gambarDestinasi').value
+            };
+            
+            const destinasi = JSON.parse(localStorage.getItem('katalogDestinasi') || '[]');
+            
+            try {
+                if (destinasiId === '') {
+                    // Tambah baru
+                    destinasi.push(newItem);
+                } else {
+                    // Update yang sudah ada
+                    destinasi[destinasiId] = newItem;
+                }
+                
+                localStorage.setItem('katalogDestinasi', JSON.stringify(destinasi));
+                
+                // Reset form
+                document.getElementById('formDestinasi').reset();
+                document.getElementById('destinasiId').value = '';
+                document.getElementById('cancelEditDestinasi').style.display = 'none';
+                document.getElementById('submitDestinasi').textContent = 'Simpan Data';
+                
+                // Tampilkan pesan sukses
+                const successMsg = document.getElementById('successMessageDestinasi');
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 3000);
+                
+                // Refresh tabel
+                loadDestinasiData();
+            } catch (error) {
+                const errorMsg = document.getElementById('errorMessageDestinasi');
+                errorMsg.style.display = 'block';
+                setTimeout(() => {
+                    errorMsg.style.display = 'none';
+                }, 3000);
+                console.error('Error saving data:', error);
+            }
+        }
+
+        function deleteDestinasi(index) {
+            const destinasi = JSON.parse(localStorage.getItem('katalogDestinasi') || '[]');
+            destinasi.splice(index, 1);
+            localStorage.setItem('katalogDestinasi', JSON.stringify(destinasi));
+            loadDestinasiData();
+        }
+
+        // FUNGSI UNTUK SOPIR
+        function loadSopirData() {
+            const sopir = JSON.parse(localStorage.getItem('katalogSopir') || '[]');
+            const tableBody = document.getElementById('daftarSopir');
+            tableBody.innerHTML = '';
+
+            sopir.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.nama}</td>
+                    <td>${item.usia}</td>
+                    <td>${item.pengalaman}</td>
+                    <td>${item.telepon}</td>
+                    <td class="action-buttons">
+                        <button class="edit-btn" data-index="${index}">Edit</button>
+                        <button class="delete-btn" data-index="${index}">Hapus</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Tambahkan event listener untuk tombol edit dan hapus
+            setupSopirActionButtons();
+        }
+
+        function setupSopirActionButtons() {
+            // Tombol Edit
+            document.querySelectorAll('#daftarSopir .edit-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    editSopir(index);
+                });
+            });
+
+            // Tombol Hapus
+            document.querySelectorAll('#daftarSopir .delete-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    showDeleteConfirmation('sopir', index);
+                });
+            });
+        }
+
+        function editSopir(index) {
+            const sopir = JSON.parse(localStorage.getItem('katalogSopir') || '[]');
+            const item = sopir[index];
+            
+            // Isi form dengan data yang akan diedit
+            document.getElementById('sopirId').value = index;
+            document.getElementById('namaSopir').value = item.nama;
+            document.getElementById('usiaSopir').value = item.usia;
+            document.getElementById('pengalamanSopir').value = item.pengalaman;
+            document.getElementById('teleponSopir').value = item.telepon;
+            document.getElementById('gambarSopir').value = item.gambar;
+            
+            // Tampilkan tombol batal edit
+            document.getElementById('cancelEditSopir').style.display = 'inline-block';
+            document.getElementById('submitSopir').textContent = 'Update Data';
+        }
+
+        function cancelEditSopir() {
+            // Reset form dan sembunyikan tombol batal
+            document.getElementById('formSopir').reset();
+            document.getElementById('sopirId').value = '';
+            document.getElementById('cancelEditSopir').style.display = 'none';
+            document.getElementById('submitSopir').textContent = 'Simpan Data';
+        }
+
+        function saveSopir(event) {
+            event.preventDefault();
+            
+            const sopirId = document.getElementById('sopirId').value;
+            const newItem = {
+                nama: document.getElementById('namaSopir').value,
+                usia: document.getElementById('usiaSopir').value,
+                pengalaman: document.getElementById('pengalamanSopir').value,
+                telepon: document.getElementById('teleponSopir').value,
+                gambar: document.getElementById('gambarSopir').value
+            };
+            
+            const sopir = JSON.parse(localStorage.getItem('katalogSopir') || '[]');
+            
+            try {
+                if (sopirId === '') {
+                    // Tambah baru
+                    sopir.push(newItem);
+                } else {
+                    // Update yang sudah ada
+                    sopir[sopirId] = newItem;
+                }
+                
+                localStorage.setItem('katalogSopir', JSON.stringify(sopir));
+                
+                // Reset form
+                document.getElementById('formSopir').reset();
+                document.getElementById('sopirId').value = '';
+                document.getElementById('cancelEditSopir').style.display = 'none';
+                document.getElementById('submitSopir').textContent = 'Simpan Data';
+                
+                // Tampilkan pesan sukses
+                const successMsg = document.getElementById('successMessageSopir');
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 3000);
+                
+                // Refresh tabel
+                loadSopirData();
+            } catch (error) {
+                const errorMsg = document.getElementById('errorMessageSopir');

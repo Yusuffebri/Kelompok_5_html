@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Utama - Travel Lovindra</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+        }
+        
+        .navbar {
+            background-color: #2a5298;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo img {
+            width: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #a3c2ff;
+        }
+
+        /* Profil Dropdown */
+        .profile-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .profile-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-button img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 8px;
+            object-fit: cover;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            min-width: 300px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1;
+            padding: 15px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .user-info h4 {
+            margin: 0;
+            color: #2a5298;
+            font-size: 18px;
+        }
+
+        .user-info p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .dropdown-section {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-section h5 {
+            margin: 0 0 10px;
+            font-size: 16px;
+            color: #2a5298;
+        }
+
+        .dropdown-section p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .dropdown-link {
+            display: block;
+            color: #2a5298;
+            text-decoration: none;
+            padding: 8px 0;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .dropdown-link:hover {
+            color: #1e3c72;
+            text-decoration: underline;
+        }
+
+        .dropdown-footer {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .dropdown-footer a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .dropdown-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .premium-card {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        .premium-card p {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .premium-card .meta {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .premium-card button {
+            background: #2a5298;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .premium-card button.secondary {
+            background: #f5f5f5;
+            color: #2a5298;
+            border: 1px solid #2a5298;
+        }
+        
+        .header {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('image/header-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #1e3c72;
+        }
+        
+        .features {
+            padding: 80px 50px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card img {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: #2a5298;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .feature-card p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .popular-destinations {
+            padding: 80px 50px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        
+        .popular-destinations h2 {
+            font-size: 36px;
+            color: #2a5298;
+            margin-bottom: 50px;
+        }
+        
+        .destinations-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .destination-card {
+            width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            transition: transform 0.3s;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .destination-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .destination-card .content {
+            padding: 20px;
+        }
+        
+        .destination-card h3 {
+            color: #2a5298;
+            margin-bottom: 10px;
+        }
+        
+        .destination-card p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        .destination-card .price {
+            color: #2a5298;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .book-button {
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .book-button:hover {
+            background-color: #1e3c72;
+        }
+        
+        /* Bagian Ulasan dan Rating */
+        .reviews-section {
+            padding: 80px 50px;
+            background-color: white;
+            text-align: center;
+        }
+        
+        .reviews-section h2 {
+            font-size: 36px;
+            color: #2a5298;
+            margin-bottom: 50px;
+        }
+        
+        .reviews-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .review-card {
+            width: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            padding: 30px;
+            text-align: left;
+        }
+        
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .reviewer-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .reviewer-name {
+            font-weight: bold;
+            color: #2a5298;
+            font-size: 18px;
+        }
+        
+        .reviewer-date {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .stars {
+            color: #ffc107;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .review-text {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .review-destination {
+            color: #2a5298;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .add-review-button {
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .add-review-button:hover {
+            background-color: #1e3c72;
+        }
+        
+        /* Form Ulasan */
+        .review-form-container {
+            display: none;
+            max-width: 600px;
+            margin: 40px auto 0;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        
+        .review-form-container.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2a5298;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .rating-selector {
+            display: flex;
+            gap: 10px;
+            font-size: 24px;
+            color: #ddd;
+        }
+        
+        .rating-selector span {
+            cursor: pointer;
+        }
+        
+        .rating-selector span.active {
+            color: #ffc107;
+        }
+        
+        .form-submit {
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .form-submit:hover {
+            background-color: #1e3c72;
+        }
+        
+        .form-cancel {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+        
+        .form-cancel:hover {
+            background-color: #5a6268;
+        }
+        
+        footer {
+            background-color: #2a5298;
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        
+        footer p {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="image/Logo.jpeg" alt="Logo">
+            Travel Lovindra
+        </div>
+        <div class="nav-links">
+            <a href="menu-utama.html">Beranda</a>
+            <a href="katalog.html">Transportasi</a>
+            <a href="Destinasi.html">Destinasi</a>
+            <a href="katalog-sopir.html" class="active">Sopir</a>
+            <a href="riwayat-transaksi.html">Riwayat Transaksi</a>
+            <div class="profile-container">
+                <button class="profile-button">
+                    <img src="image/profile-pic.jpg" alt="Profil">
+                    Diandra
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="dropdown-header">
+                        <img src="image/profile-pic.jpg" alt="Profil">
+                        <div class="user-info">
+                            <h4>Vincenzo</h4>
+                            <p>vincenzocassano@gmail.com</p>
+                            <p>Madiun, East Java, Indonesia</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-section">
+                        <h5>Bio</h5>
+                        <p>Anjay mabar</p>
+                        <a href="#" class="dropdown-link">View all analytics</a>
+                    </div>
+                    
+                    <div class="dropdown-section">
+                        <h5>Add another account</h5>
+                        <a href="#" class="dropdown-link">Saved posts</a>
+                    </div>
+                    
+                    <div class="dropdown-section">
+                        <h5>Point</h5>
+                        <div class="premium-card">
+                            <p>Member Card</p>
+                            <p class="meta">Detail</p>
+                            <button>Send</button>
+                            <button class="secondary">Receive</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-footer">
+                        <a href="index.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <header class="header">
+        <h1>Jelajahi Indonesia Bersama Lovindra</h1>
+        <p>Nikmati perjalanan nyaman dengan armada kendaraan kami yang berkualitas dan berpengalaman</p>
+        <button class="cta-button" onclick="window.location.href='Tentang Kami.html'">Ketahui Lebih Lanjut Tentang Kami</button>
+    </header>
+    
+    <section class="features">
+        <div class="feature-card">
+            <img src="image/ngengeng.jpeg" alt="Kendaraan Berkualitas">
+            <h3>Kendaraan Berkualitas</h3>
+            <p>Armada kendaraan kami selalu dalam kondisi prima dan selalu dirawat secara berkala demi kenyamanan perjalanan Anda.</p>
+        </div>
+        
+        <div class="feature-card">
+            <img src="image/sopir.jpeg" alt="Sopir Profesional">
+            <h3>Sopir Profesional</h3>
+            <p>Driver kami adalah profesional berpengalaman yang ramah dan menguasai rute perjalanan dengan baik.</p>
+        </div>
+        
+        <div class="feature-card">
+            <img src="image/duit.jpeg" alt="Harga Terjangkau">
+            <h3>Harga Terjangkau</h3>
+            <p>Kami menawarkan paket perjalanan dengan harga kompetitif tanpa mengurangi kualitas layanan kami.</p>
+        </div>
+    </section>
+    
+    <section class="popular-destinations">
+        <h2>Destinasi Populer</h2>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <img src="image/bl.jpeg" alt="Bali">
+                <div class="content">
+                    <h3>Bali</h3>
+                    <p>Nikmati keindahan pantai dan budaya Bali dengan paket perjalanan kami.</p>
+                    <div class="price">Mulai dari Rp 1.500.000</div>
+                    <button class="book-button" onclick="window.location.href='paket bali.html'">Lihat Detail</button>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <img src="image/jogja.jpeg" alt="Yogyakarta">
+                <div class="content">
+                    <h3>Yogyakarta</h3>
+                    <p>Rasakan nuansa sejarah dan budaya di kota pelajar yang mempesona.</p>
+                    <div class="price">Mulai dari Rp 800.000</div>
+                    <button class="book-button" onclick="window.location.href='paket yogyakarta.html'">Lihat Detail</button>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <img src="image/bd.jpeg" alt="Bandung">
+                <div class="content">
+                    <h3>Bandung</h3>
+                    <p>Kunjungi kota dengan pemandangan indah dan wisata kuliner yang menggugah selera.</p>
+                    <div class="price">Mulai dari Rp 600.000</div>
+                    <button class="book-button" onclick="window.location.href='paket bandung.html'">Lihat Detail</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bagian Ulasan dan Rating -->
+    <section class="reviews-section">
+        <h2>Ulasan dan Rating Pelanggan</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <img src="image/Kim Mingyu.jpg" alt="Kim Mingyu">
+                    <div>
+                        <div class="reviewer-name">Kim Mingyu</div>
+                        <div class="reviewer-date">15 Maret 2025</div>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <p class="review-text">Perjalanan ke Bali bersama Travel Lovindra sangat memuaskan! Sopir sangat ramah dan mobil yang digunakan sangat nyaman. Tidak ada kendala selama perjalanan. Pasti akan menggunakan jasa Travel Lovindra lagi.</p>
+                <p class="review-destination">Tujuan: Paket Wisata Bali</p>
+            </div>
+            
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <img src="image/Hwang In Yeop.jpg" alt="Hwang In Yeop">
+                    <div>
+                        <div class="reviewer-name">Hwang In Yeop</div>
+                        <div class="reviewer-date">10 Maret 2025</div>
+                    </div>
+                </div>
+                <div class="stars">★★★★☆</div>
+                <p class="review-text">Perjalanan ke Yogyakarta sangat menyenangkan. Sopir sangat mengerti rute terbaik dan menghindari macet. Hanya saja AC di mobil kurang dingin, tapi secara keseluruhan layanan sangat baik.</p>
+                <p class="review-destination">Tujuan: Paket Wisata Yogyakarta</p>
+            </div>
+            
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <img src="image/Park Bogum.jpg" alt="Park Bo Gum">
+                    <div>
+                        <div class="reviewer-name">Park Bo Gum</div>
+                        <div class="reviewer-date">5 Maret 2025</div>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <p class="review-text">Saya sangat puas dengan pelayanan Travel Lovindra selama perjalanan ke Bandung. Mobil yang digunakan sangat bersih dan nyaman. Sopir juga sangat ramah dan profesional. Harga juga sangat terjangkau dibandingkan travel lain.</p>
+                <p class="review-destination">Tujuan: Paket Wisata Bandung</p>
+            </div>
+        </div>
+        <button class="add-review-button" id="toggleReviewForm">Tambahkan Ulasan Anda</button>
+        
+        <!-- Form Ulasan -->
+        <div class="review-form-container" id="reviewFormContainer">
+            <h3 style="color: #2a5298; margin-bottom: 20px;">Tambahkan Ulasan Anda</h3>
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label for="reviewerName">Nama Anda</label>
+                    <input type="text" id="reviewerName" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Rating</label>
+                    <div class="rating-selector" id="ratingSelector">
+                        <span data-rating="1">★</span>
+                        <span data-rating="2">★</span>
+                        <span data-rating="3">★</span>
+                        <span data-rating="4">★</span>
+                        <span data-rating="5">★</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="destination">Destinasi yang Dikunjungi</label>
+                    <select id="destination" class="form-control" required>
+                        <option value="">Pilih Destinasi</option>
+                        <option value="Bali">Paket Wisata Bali</option>
+                        <option value="Yogyakarta">Paket Wisata Yogyakarta</option>
+                        <option value="Bandung">Paket Wisata Bandung</option>
+                        <option value="Solo">Paket Wisata Solo</option>
+                        <option value="Malang">Paket Wisata Malang</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewText">Ulasan Anda</label>
+                    <textarea id="reviewText" class="form-control" rows="5" required></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit">Kirim Ulasan</button>
+                <button type="button" class="form-cancel" id="cancelReview">Batal</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="logo">
+            <img src="image/Logo.jpeg" alt="Logo">
+            Travel Lovindra
+        </div>
+        <p>&copy; 2025 Travel Lovindra. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script>
+        // Profil dropdown functionality
+        const profileButton = document.querySelector('.profile-button');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        profileButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownMenu.contains(e.target) && e.target !== profileButton) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
+
+        // Toggle form visibility when the button is clicked
+        const toggleReviewFormBtn = document.getElementById('toggleReviewForm');
+        const reviewFormContainer = document.getElementById('reviewFormContainer');
+        const cancelReviewBtn = document.getElementById('cancelReview');
+        
+        toggleReviewFormBtn.addEventListener('click', function() {
+            reviewFormContainer.classList.add('active');
+            toggleReviewFormBtn.style.display = 'none';
+        });
+        
+        cancelReviewBtn.addEventListener('click', function() {
+            reviewFormContainer.classList.remove('active');
+            toggleReviewFormBtn.style.display = 'inline-block';
+        });
+        
+        // Rating selector functionality
+        const ratingSelector = document.getElementById('ratingSelector');
+        const ratingStars = ratingSelector.querySelectorAll('span');
+        
+        ratingStars.forEach(star => {
+            star.addEventListener('mouseover', function() {
+                const rating = this.getAttribute('data-rating');
+                highlightStars(rating);
+            });
+            
+            star.addEventListener('mouseout', function() {
+                resetStars();
+                const selectedRating = ratingSelector.getAttribute('data-selected');
+                if (selectedRating) {
+                    highlightStars(selectedRating);
+                }
+            });
+            
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                ratingSelector.setAttribute('data-selected', rating);
+                highlightStars(rating);
+            });
+        });
+        
+        function highlightStars(rating) {
+            ratingStars.forEach(star => {
+                if (star.getAttribute('data-rating') <= rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+        
+        function resetStars() {
+            ratingStars.forEach(star => {
+                star.classList.remove('active');
+            });
+        }
+        
+        // Form submission
+        const reviewForm = document.getElementById('reviewForm');
+        
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const reviewerName = document.getElementById('reviewerName').value;
+            const selectedRating = ratingSelector.getAttribute('data-selected') || '5';
+            const destination = document.getElementById('destination').value;
+            const reviewText = document.getElementById('reviewText').value;
+            
+            // Get current date
+            const today = new Date();
+            const day = today.getDate();
+            const month = today.getMonth();
+            const year = today.getFullYear();
+            
+            const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            const dateString = `${day} ${monthNames[month]} ${year}`;
+            
+            // Create new review card
+            const newReview = document.createElement('div');
+            newReview.className = 'review-card';
+            
+            // Generate stars based on rating
+            let starsHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= selectedRating) {
+                    starsHTML += '★';
+                } else {
+                    starsHTML += '☆';
+                }
+            }
+            
+            newReview.innerHTML = `
+                <div class="reviewer-info">
+                    <img src="/api/placeholder/60/60" alt="${reviewerName}">
+                    <div>
+                        <div class="reviewer-name">${reviewerName}</div>
+                        <div class="reviewer-date">${dateString}</div>
+                    </div>
+                </div>
+                <div class="stars">${starsHTML}</div>
+                <p class="review-text">${reviewText}</p>
+                <p class="review-destination">Tujuan: Paket Wisata ${destination}</p>
+            `;
+            
+            // Add the new review to the top of the reviews grid
+            const reviewsGrid = document.querySelector('.reviews-grid');
+            reviewsGrid.insertBefore(newReview, reviewsGrid.firstChild);
+            
+            // Reset the form
+            reviewForm.reset();
+            ratingSelector.removeAttribute('data-selected');
+            resetStars();
+            
+            // Hide the form
+            reviewFormContainer.classList.remove('active');
+            toggleReviewFormBtn.style.display = 'inline-block';
+            
+            // Show success message
+            alert('Terima kasih! Ulasan Anda berhasil ditambahkan.');
+        });
+    </script>
+</body>
+</html>

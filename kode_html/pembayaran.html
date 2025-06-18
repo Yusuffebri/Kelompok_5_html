@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pembayaran - Travel Lovindra</title>
+    <link rel="icon" type="image/png" href="image/Logo.jpeg" sizes="16x16">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background-color: #2a5298;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo h1 {
+            color: #fff;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .payment-container {
+            width: 80%;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-summary {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            border: 1px solid #eaeaea;
+        }
+
+        .order-summary h3 {
+            color: #2a5298;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .order-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .order-item img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .order-item-details h4 {
+            margin-bottom: 5px;
+            color: #2a5298;
+        }
+
+        .order-item-details p {
+            color: #666;
+            margin-bottom: 3px;
+        }
+
+        .customer-details {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            border: 1px solid #eaeaea;
+        }
+
+        .customer-details h3 {
+            color: #2a5298;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .customer-info {
+            margin-bottom: 5px;
+            display: flex;
+        }
+
+        .customer-info strong {
+            width: 150px;
+            display: inline-block;
+        }
+
+        .payment-methods {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            border: 1px solid #eaeaea;
+        }
+
+        .payment-methods h3 {
+            color: #2a5298;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #eaeaea;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .payment-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .payment-option input {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .payment-option img {
+            width: 50px;
+            height: 30px;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+
+        .payment-total {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f0f8ff;
+            border: 1px solid #d1e6ff;
+        }
+
+        .payment-total h3 {
+            color: #2a5298;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #d1e6ff;
+        }
+
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FF9800;
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .action-buttons {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .primary-button {
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            background-color: #FF9800;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .primary-button:hover {
+            background-color: #F57C00;
+        }
+
+        .secondary-button {
+            padding: 12px 24px;
+            border: 1px solid #2a5298;
+            cursor: pointer;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #2a5298;
+            font-weight: bold;
+            font-size: 16px;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .secondary-button:hover {
+            background-color: #f5f5f5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #2a5298;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .payment-instructions {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fffaeb;
+            border: 1px solid #ffe9b8;
+            display: none;
+        }
+
+        .payment-instructions h3 {
+            color: #FF9800;
+            margin-bottom: 10px;
+        }
+
+        .payment-instructions ol {
+            margin-left: 20px;
+        }
+
+        .payment-instructions li {
+            margin-bottom: 8px;
+        }
+
+        .bank-account {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px dashed #FF9800;
+            border-radius: 5px;
+        }
+
+        .copy-button {
+            background-color: #eee;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 12px;
+        }
+
+        .timer-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #fffaeb;
+            border-radius: 5px;
+            border: 1px solid #ffe9b8;
+            display: none;
+        }
+
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FF9800;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Travel Lovindra</h1>
+        </div>
+        <div class="nav-links">
+            <a href="menu-utama.html">Beranda</a>
+            <a href="katalog.html">Transportasi</a>
+            <a href="Destinasi.html">Destinasi</a>
+            <a href="katalog-sopir.html">Sopir</a>
+            <a href="riwayat-transaksi.html">Riwayat Transaksi</a>
+            <a href="index.html">Logout</a>
+        </div>
+    </nav>
+    
+    <div class="payment-container">
+        <h2>Pembayaran Pesanan</h2>
+        
+        <div class="order-summary">
+            <h3>Ringkasan Pesanan</h3>
+            <div id="package-summary" class="order-item">
+                <!-- Paket wisata akan ditampilkan di sini -->
+            </div>
+            <div id="vehicle-summary" class="order-item">
+                <!-- Kendaraan akan ditampilkan di sini -->
+            </div>
+        </div>
+        
+        <div class="customer-details">
+            <h3>Detail Pemesan</h3>
+            <div class="customer-info"><strong>Nama:</strong> <span id="customer-name-display"></span></div>
+            <div class="customer-info"><strong>Email:</strong> <span id="customer-email-display"></span></div>
+            <div class="customer-info"><strong>No. Telepon:</strong> <span id="customer-phone-display"></span></div>
+            <div class="customer-info"><strong>Tanggal Keberangkatan:</strong> <span id="pickup-date-display"></span></div>
+            <div class="customer-info"><strong>Tanggal Kepulangan:</strong> <span id="return-date-display"></span></div>
+            <div class="customer-info"><strong>Durasi:</strong> <span id="duration-display"></span></div>
+            <div class="customer-info"><strong>Jumlah Peserta:</strong> <span id="participant-count-display"></span></div>
+        </div>
+        
+        <div class="payment-methods">
+            <h3>Pilih Metode Pembayaran</h3>
+            <div class="payment-option">
+                <input type="radio" id="bca" name="payment-method" value="BCA">
+                <img src="https://www.bca.co.id/-/media/Feature/Card/List-Card/Tentang-BCA/Brand-Assets/Logo-BCA/Logo-BCA_Biru.png" alt="BCA">
+                <label for="bca">Transfer Bank BCA</label>
+            </div>
+            <div class="payment-option">
+                <input type="radio" id="mandiri" name="payment-method" value="Mandiri">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg" alt="Mandiri">
+                <label for="mandiri">Transfer Bank Mandiri</label>
+            </div>
+            <div class="payment-option">
+                <input type="radio" id="bni" name="payment-method" value="BNI">
+                <img src="https://upload.wikimedia.org/wikipedia/id/5/55/BNI_logo.svg" alt="BNI">
+                <label for="bni">Transfer Bank BNI</label>
+            </div>
+            <div class="payment-option">
+                <input type="radio" id="qris" name="payment-method" value="QRIS">
+                <img src="image/Qris.jpeg" alt="QRIS">
+                <label for="qris">QRIS</label>
+            </div>
+        </div>
+        
+        <div class="payment-total">
+            <h3>Total Pembayaran</h3>
+            <div class="payment-row">
+                <span>Harga Paket Wisata:</span>
+                <span id="package-price-total"></span>
+            </div>
+            <div class="payment-row">
+                <span>Harga Sewa Kendaraan:</span>
+                <span id="vehicle-price-total"></span>
+            </div>
+            <div class="total-amount">
+                Total: <span id="total-amount-display">Rp 0</span>
+            </div>
+        </div>
+        
+        <div class="timer-container" id="payment-timer">
+            <h3>Batas Waktu Pembayaran</h3>
+            <div class="timer" id="countdown-timer">24:00:00</div>
+            <p>Mohon selesaikan pembayaran Anda sebelum batas waktu di atas.</p>
+        </div>
+        
+        <div class="payment-instructions" id="payment-instructions">
+            <h3>Instruksi Pembayaran</h3>
+            <ol>
+                <li>Silakan transfer sesuai dengan total pembayaran yang tertera.</li>
+                <li>Gunakan ATM, Mobile Banking, atau Internet Banking.</li>
+                <li>Transfer ke rekening berikut:</li>
+            </ol>
+            <div class="bank-account">
+                <div id="bank-account-number">
+                    <!-- Bank account will appear here -->
+                </div>
+                <div>
+                    <strong>Atas Nama:</strong> PT. Travel Lovindra Indonesia
+                </div>
+            </div>
+            <p>Setelah melakukan pembayaran, simpan bukti transfer untuk konfirmasi pesanan.</p>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="secondary-button" id="cancel-button">Batalkan</button>
+            <button class="primary-button" id="pay-button">Bayar Sekarang</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Travel Lovindra. Semua hak dilindungi.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ambil data pesanan dari localStorage
+            const selectedPackage = localStorage.getItem('selectedPackage');
+            const packagePrice = localStorage.getItem('packagePrice');
+            const packageImage = localStorage.getItem('packageImage');
+            
+            const selectedVehicle = localStorage.getItem('selectedVehicle');
+            const vehiclePrice = localStorage.getItem('vehiclePrice');
+            const vehicleImage = localStorage.getItem('vehicleImage');
+            
+            const customerName = localStorage.getItem('customerName');
+            const customerEmail = localStorage.getItem('customerEmail');
+            const customerPhone = localStorage.getItem('customerPhone');
+            const pickupDate = localStorage.getItem('pickupDate');
+            const returnDate = localStorage.getItem('returnDate');
+            const duration = localStorage.getItem('duration');
+            const participantCount = localStorage.getItem('participantCount');
+            const totalPayment = localStorage.getItem('totalPayment');
+            
+            // Format tanggal ke format Indonesia
+            function formatDate(dateString) {
+                if (!dateString) return "-";
+                const date = new Date(dateString);
+                return date.toLocaleDateString('id-ID', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            }
+            
+            // Tampilkan data paket wisata
+            if (selectedPackage && packageImage) {
+                document.getElementById('package-summary').innerHTML = `
+                    <img src="${packageImage}" alt="${selectedPackage}">
+                    <div class="order-item-details">
+                        <h4>${selectedPackage}</h4>
+                        <p>${packagePrice}</p>
+                        <p>Jumlah Peserta: ${participantCount} orang</p>
+                    </div>
+                `;
+                
+                // Hitung total harga paket
+                const packagePriceValue = parseInt(packagePrice.replace(/[^\d]/g, ''));
+                const packageTotal = packagePriceValue * parseInt(participantCount);
+                document.getElementById('package-price-total').textContent = `Rp ${packageTotal.toLocaleString('id-ID')}`;
+            } else {
+                document.getElementById('package-summary').style.display = 'none';
+                document.getElementById('package-price-total').textContent = 'Rp 0';
+            }
+            
+            // Tampilkan data kendaraan
+            if (selectedVehicle && vehicleImage) {
+                document.getElementById('vehicle-summary').innerHTML = `
+                    <img src="${vehicleImage}" alt="${selectedVehicle}">
+                    <div class="order-item-details">
+                        <h4>${selectedVehicle}</h4>
+                        <p>${vehiclePrice}</p>
+                        <p>Durasi Sewa: ${duration} hari</p>
+                    </div>
+                `;
+                
+                // Hitung total harga kendaraan
+                const vehiclePriceValue = parseInt(vehiclePrice.replace(/[^\d]/g, ''));
+                const vehicleTotal = vehiclePriceValue * parseInt(duration);
+                document.getElementById('vehicle-price-total').textContent = `Rp ${vehicleTotal.toLocaleString('id-ID')}`;
+            } else {
+                document.getElementById('vehicle-summary').style.display = 'none';
+                document.getElementById('vehicle-price-total').textContent = 'Rp 0';
+            }
+            
+            // Tampilkan detail pelanggan
+            document.getElementById('customer-name-display').textContent = customerName || '-';
+            document.getElementById('customer-email-display').textContent = customerEmail || '-';
+            document.getElementById('customer-phone-display').textContent = customerPhone || '-';
+            document.getElementById('pickup-date-display').textContent = formatDate(pickupDate);
+            document.getElementById('return-date-display').textContent = formatDate(returnDate);
+            document.getElementById('duration-display').textContent = duration ? `${duration} hari` : '-';
+            document.getElementById('participant-count-display').textContent = participantCount ? `${participantCount} orang` : '-';
+            
+            // Tampilkan total pembayaran
+            document.getElementById('total-amount-display').textContent = `Rp ${parseInt(totalPayment).toLocaleString('id-ID')}`;
+            
+            // Daftar rekening bank untuk setiap metode pembayaran
+            const bankAccounts = {
+                'BCA': '8734562190',
+                'Mandiri': '1357924680',
+                'BNI': '0246813579',
+                'QRIS': 'Scan QR Code di aplikasi pembayaran Anda'
+            };
+            
+            // Handle pemilihan metode pembayaran
+            const paymentOptions = document.querySelectorAll('input[name="payment-method"]');
+            paymentOptions.forEach(option => {
+                option.addEventListener('change', function() {
+                    const selectedBank = this.value;
+                    const instructionsDiv = document.getElementById('payment-instructions');
+                    const bankAccountDiv = document.getElementById('bank-account-number');
+                    
+                    instructionsDiv.style.display = 'block';
+                    
+                    if (selectedBank === 'QRIS') {
+                        bankAccountDiv.innerHTML = `
+                            <strong>QRIS Code:</strong> 
+                            <div style="text-align: center; margin: 10px 0;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/220px-QR_code_for_mobile_English_Wikipedia.svg.png" 
+                                    alt="QRIS Code" style="width: 150px; height: 150px;">
+                            </div>
+                        `;
+                    } else {
+                        bankAccountDiv.innerHTML = `
+                            <strong>Nomor Rekening ${selectedBank}:</strong> 
+                            <span id="account-number">${bankAccounts[selectedBank]}</span>
+                            <button class="copy-button" onclick="copyToClipboard('${bankAccounts[selectedBank]}')">Salin</button>
+                        `;
+                    }
+                });
+            });
+            
+            // Fungsi untuk menyalin nomor rekening
+            window.copyToClipboard = function(text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Nomor rekening berhasil disalin!');
+                });
+            };
+            
+            // Handle tombol bayar
+            document.getElementById('pay-button').addEventListener('click', function() {
+                const selectedMethod = document.querySelector('input[name="payment-method"]:checked');
+                
+                if (!selectedMethod) {
+                    alert('Silakan pilih metode pembayaran terlebih dahulu.');
+                    return;
+                }
+                
+                // Tampilkan timer pembayaran
+                const timerContainer = document.getElementById('payment-timer');
+                timerContainer.style.display = 'block';
+                
+                // Mulai hitung mundur 24 jam
+                startCountdown();
+                
+                alert(`Pesanan berhasil dibuat! Silakan lakukan pembayaran menggunakan ${selectedMethod.value} dalam waktu 24 jam.`);
+                
+                // Scroll ke instruksi pembayaran
+                document.getElementById('payment-instructions').scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Disable tombol bayar
+                this.disabled = true;
+                this.textContent = 'Menunggu Pembayaran';
+                this.style.backgroundColor = '#ccc';
+                
+                // Simpan status pembayaran ke localStorage
+                localStorage.setItem('paymentStatus', 'pending');
+                localStorage.setItem('paymentMethod', selectedMethod.value);
+                localStorage.setItem('paymentDeadline', Date.now() + (24 * 60 * 60 * 1000)); // 24 jam dari sekarang
+            });
+            
+            // Fungsi hitung mundur
+            function startCountdown() {
+                let hoursLeft = 24;
+                let minutesLeft = 0;
+                let secondsLeft = 0;
+                
+                const countdownTimer = document.getElementById('countdown-timer');
+                
+                const timer = setInterval(function() {
+                    if (secondsLeft === 0) {
+                        if (minutesLeft === 0) {
+                            if (hoursLeft === 0) {
+                                clearInterval(timer);
+                                countdownTimer.textContent = '00:00:00';
+                                alert('Batas waktu pembayaran telah berakhir. Pesanan Anda dibatalkan.');
+                                return;
+                            }
+                            hoursLeft--;
+                            minutesLeft = 59;
+                        } else {
+                            minutesLeft--;
+                        }
+                        secondsLeft = 59;
+                    } else {
+                        secondsLeft--;
+                    }
+                    
+                    countdownTimer.textContent = 
+                        `${hoursLeft.toString().padStart(2, '0')}:${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
+                }, 1000);
+            }
+            
+            // Handle tombol batal
+            document.getElementById('cancel-button').addEventListener('click', function() {
+                if (confirm('Apakah Anda yakin ingin membatalkan pesanan?')) {
+                    alert('Pesanan berhasil dibatalkan.');
+                    // Hapus data pesanan dari localStorage
+                    localStorage.removeItem('selectedPackage');
+                    localStorage.removeItem('packagePrice');
+                    localStorage.removeItem('packageImage');
+                    localStorage.removeItem('selectedVehicle');
+                    localStorage.removeItem('vehiclePrice');
+                    localStorage.removeItem('vehicleImage');
+                    localStorage.removeItem('customerName');
+                    localStorage.removeItem('customerEmail');
+                    localStorage.removeItem('customerPhone');
+                    localStorage.removeItem('pickupDate');
+                    localStorage.removeItem('returnDate');
+                    localStorage.removeItem('duration');
+                    localStorage.removeItem('participantCount');
+                    localStorage.removeItem('totalPayment');
+                    localStorage.removeItem('paymentStatus');
+                    localStorage.removeItem('paymentMethod');
+                    localStorage.removeItem('paymentDeadline');
+                    
+                    // Redirect ke halaman utama
+                    window.location.href = 'menu-utama.html';
+                }
+            });
+            
+            // Periksa apakah ada status pembayaran tersimpan
+            const paymentStatus = localStorage.getItem('paymentStatus');
+            if (paymentStatus === 'pending') {
+                // Tampilkan status pembayaran tertunda
+                const payButton = document.getElementById('pay-button');
+                payButton.disabled = true;
+                payButton.textContent = 'Menunggu Pembayaran';
+                payButton.style.backgroundColor = '#ccc';
+                
+                // Cek metode pembayaran yang dipilih sebelumnya
+                const savedMethod = localStorage.getItem('paymentMethod');
+                if (savedMethod) {
+                    document.querySelector(`input[value="${savedMethod}"]`).checked = true;
+                    
+                    // Trigger event untuk menampilkan instruksi pembayaran
+                    const event = new Event('change');
+                    document.querySelector(`input[value="${savedMethod}"]`).dispatchEvent(event);
+                }
+                
+                // Tampilkan timer pembayaran
+                const timerContainer = document.getElementById('payment-timer');
+                timerContainer.style.display = 'block';
+                
+                // Hitung sisa waktu pembayaran
+                const deadline = parseInt(localStorage.getItem('paymentDeadline'));
+                const timeLeft = deadline - Date.now();
+                
+                if (timeLeft > 0) {
+                    // Konversi milliseconds ke format jam:menit:detik
+                    const hoursLeft = Math.floor(timeLeft / (1000 * 60 * 60));
+                    const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                    
+                    document.getElementById('countdown-timer').textContent = 
+                        `${hoursLeft.toString().padStart(2, '0')}:${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
+                    
+                    startCountdown();
+                } else {
+                    // Timer sudah habis
+                    document.getElementById('countdown-timer').textContent = '00:00:00';
+                    alert('Batas waktu pembayaran telah berakhir. Pesanan Anda dibatalkan.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

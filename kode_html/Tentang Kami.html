@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tentang Kami - Travel Lovindra</title>
+    <link rel="icon" type="image/png" href="image/Logo.jpeg" sizes="16x16">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background-color: #2a5298;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .about-header {
+            background-color: #2a5298;
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+
+        /* Slideshow styles */
+        .slideshow-container {
+            max-width: 1000px;
+            position: relative;
+            margin: auto;
+            margin-top: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .mySlides {
+            display: none;
+            width: 100%;
+            height: 400px;
+        }
+
+        .mySlides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Next & previous buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.3);
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        /* Caption text */
+        .text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        /* The dots/bullets/indicators */
+        .dots-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active-dot, .dot:hover {
+            background-color: #2a5298;
+        }
+
+        /* Fading animation */
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+
+        .about-container {
+            padding: 50px;
+            max-width: 800px;
+            margin: auto;
+            margin-top: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .about-container h2 {
+            color: #2a5298;
+            margin-bottom: 20px;
+            font-size: 48px;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+        }
+
+        .about-container p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Contact section styles */
+        .contact-container {
+            padding: 50px;
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .contact-container h2 {
+            color: #2a5298;
+            margin-bottom: 30px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 200px;
+        }
+
+        .contact-icon {
+            font-size: 30px;
+            color: #2a5298;
+            margin-bottom: 15px;
+        }
+
+        .contact-text {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .social-media {
+            margin-top: 30px;
+        }
+
+        .social-icon {
+            display: inline-block;
+            margin: 0 15px;
+            font-size: 30px;
+            color: #2a5298;
+            transition: transform 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2a5298;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Travel Lovindra</h1>
+        </div>
+        <div class="nav-links">
+            <a href="menu-utama.html">Beranda</a>
+            <a href="katalog.html">Transportasi</a>
+            <a href="Destinasi.html">Destinasi</a>
+            <a href="katalog-sopir.html" class="active">Sopir</a>
+            <a href="riwayat-transaksi.html">Riwayat Transaksi</a>
+            <a href="index.html">Logout</a>
+        </div>
+    </nav>
+
+    <header class="about-header">
+        <h1>Tentang Kami</h1>
+    </header>
+
+    <!-- Slideshow section -->
+    <div class="slideshow-container">
+        <div class="mySlides fade">
+            <img src="image/bali.jpeg" alt="Bali">
+            <div class="text">Bali - Pulau Dewata</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="image/raja ampat.jpeg" alt="Raja Ampat">
+            <div class="text">Raja Ampat - Surga di Timur Indonesia</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="image/malang.jpeg" alt="Bromo">
+            <div class="text">Gunung Bromo - Keindahan Alam Jawa Timur</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="image/jogja.jpeg" alt="Yogyakarta">
+            <div class="text">Yogyakarta - Kota Budaya</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="image/lombok.jpeg" alt="Lombok">
+            <div class="text">Lombok - Pesona Pantai Eksotis</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <div class="dots-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+    </div>
+
+    <!-- About section -->
+    <section class="about-container">
+        <h2>Travel Lovindra</h2>
+        <p>Travel Lovindra adalah layanan penyewaan kendaraan terbaik yang siap menemani perjalanan Anda dengan aman dan nyaman. Kami menyediakan berbagai jenis kendaraan mulai dari mobil keluarga, van, hingga bus pariwisata.</p>
+        <p>Didirikan dengan komitmen untuk memberikan pengalaman perjalanan yang menyenangkan, Travel Lovindra selalu mengutamakan kepuasan pelanggan dengan layanan terbaik dan kendaraan berkualitas.</p>
+        <p>Kami siap menjadi bagian dari perjalanan Anda, baik untuk liburan, perjalanan bisnis, maupun kebutuhan transportasi lainnya.</p>
+    </section>
+
+    <!-- Contact section -->
+    <section class="contact-container">
+        <h2>Kontak Kami</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-text">
+                    <p>Jl. Raya Lovindra No. 123</p>
+                    <p>Jakarta Pusat, 10110</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="contact-text">
+                    <p>+62 812 3456 7890</p>
+                    <p>+62 21 8765 4321</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-text">
+                    <p>info@travellovindra.com</p>
+                    <p>booking@travellovindra.com</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="social-media">
+            <h3>Ikuti Kami</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 Travel Lovindra. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Next/previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active-dot", "");
+            }
+            slides[slideIndex-1].style.display = "block";
+            dots[slideIndex-1].className += " active-dot";
+        }
+
+        // Auto slideshow
+        setInterval(function() {
+            plusSlides(1);
+        }, 5000); // Change image every 5 seconds
+    </script>
+</body>
+</html>

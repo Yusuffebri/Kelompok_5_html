@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Katalog Sopir - Travel Lovindra</title>
+    <link rel="icon" type="image/png" href="image/Logo.jpeg" sizes="16x16">
+    <!-- Add Font Awesome for chat icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         }
+         
+         body {
+             background-color: #f5f5f5;
+         }
+         
+         .navbar {
+             background-color: #2a5298;
+             padding: 15px 50px;
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+             position: sticky;
+             top: 0;
+             z-index: 100;
+         }
+         
+         .logo {
+             display: flex;
+             align-items: center;
+             color: white;
+             font-size: 24px;
+             font-weight: bold;
+         }
+         
+         .logo img {
+             width: 40px;
+             margin-right: 10px;
+         }
+         
+         .nav-links {
+             display: flex;
+             gap: 20px;
+         }
+         
+         .nav-links a {
+             color: white;
+             text-decoration: none;
+             font-weight: 500;
+             transition: color 0.3s;
+         }
+         
+         .nav-links a:hover {
+             color: #a3c2ff;
+         }
+         
+         .catalog-header {
+             background-color: #2a5298;
+             color: white;
+             padding: 50px;
+             text-align: center;
+         }
+         
+         .catalog-header h1 {
+             font-size: 36px;
+             margin-bottom: 20px;
+         }
+         
+         .catalog-header p {
+             font-size: 18px;
+             max-width: 800px;
+             margin: 0 auto;
+         }
+         
+         .filter-section {
+             background-color: white;
+             padding: 20px 50px;
+             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+             display: flex;
+             justify-content: center;
+             flex-wrap: wrap;
+             gap: 15px;
+         }
+         
+         .filter-button {
+             background-color: white;
+             color: #2a5298;
+             border: 1px solid #2a5298;
+             padding: 10px 20px;
+             border-radius: 5px;
+             cursor: pointer;
+             transition: all 0.3s;
+             font-weight: 500;
+         }
+         
+         .filter-button:hover, .filter-button.active {
+             background-color: #2a5298;
+             color: white;
+         }
+         
+         .catalog-container {
+             padding: 50px;
+             display: flex;
+             flex-wrap: wrap;
+             gap: 30px;
+             justify-content: center;
+         }
+         
+         .driver-card {
+             background-color: white;
+             border-radius: 10px;
+             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+             width: 350px;
+             overflow: hidden;
+             transition: transform 0.3s;
+             position: relative;
+         }
+         
+         .driver-card:hover {
+             transform: translateY(-10px);
+         }
+         
+         .driver-card .image-container {
+             position: relative;
+         }
+         
+         .driver-card img {
+             width: 100%;
+             aspect-ratio: 1/1;
+             object-fit: cover;
+             object-position: center top;
+         }
+         
+         .chat-icon {
+             position: absolute;
+             bottom: 15px;
+             right: 15px;
+             background-color: #2a5298;
+             color: white;
+             width: 40px;
+             height: 40px;
+             border-radius: 50%;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             cursor: pointer;
+             transition: all 0.3s;
+             z-index: 2;
+         }
+         
+         .chat-icon:hover {
+             background-color: #1e3c72;
+             transform: scale(1.1);
+         }
+         
+         .driver-card .content {
+             padding: 20px;
+         }
+         
+         .driver-card h3 {
+             color: #2a5298;
+             margin-bottom: 10px;
+             font-size: 20px;
+         }
+         
+         .driver-card .specs {
+             margin-bottom: 15px;
+         }
+         
+         .driver-card .spec {
+             display: flex;
+             align-items: center;
+             margin-bottom: 5px;
+             color: #555;
+         }
+         
+         .driver-rating {
+             color: #ffc107;
+             font-size: 18px;
+             margin-bottom: 10px;
+         }
+         
+         .driver-specialties {
+             display: flex;
+             flex-wrap: wrap;
+             gap: 5px;
+             margin-bottom: 15px;
+         }
+         
+         .specialty-tag {
+             display: inline-block;
+             background-color: #e6f0ff;
+             color: #2a5298;
+             padding: 5px 12px;
+             border-radius: 20px;
+             font-size: 14px;
+         }
+         
+         .book-button {
+             background-color: #2a5298;
+             color: white;
+             border: none;
+             padding: 10px 20px;
+             border-radius: 5px;
+             cursor: pointer;
+             transition: background-color 0.3s;
+             width: 100%;
+             font-size: 16px;
+         }
+         
+         .book-button:hover {
+             background-color: #1e3c72;
+         }
+         
+         .pagination {
+             display: flex;
+             justify-content: center;
+             gap: 10px;
+             margin: 30px 0;
+         }
+         
+         .pagination button {
+             padding: 10px 15px;
+             border: 1px solid #2a5298;
+             background-color: white;
+             color: #2a5298;
+             border-radius: 5px;
+             cursor: pointer;
+             transition: all 0.3s;
+         }
+         
+         .pagination button.active, .pagination button:hover {
+             background-color: #2a5298;
+             color: white;
+         }
+         
+         footer {
+             background-color: #2a5298;
+             color: white;
+             padding: 50px;
+             text-align: center;
+         }
+         
+         footer p {
+             margin-top: 20px;
+         }
+         
+         /* Chat Modal Styles */
+         .chat-modal {
+             display: none;
+             position: fixed;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             background-color: rgba(0, 0, 0, 0.5);
+             z-index: 1000;
+             justify-content: center;
+             align-items: center;
+         }
+         
+         .chat-container {
+             background-color: white;
+             width: 400px;
+             max-width: 90%;
+             border-radius: 10px;
+             overflow: hidden;
+             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+             display: flex;
+             flex-direction: column;
+             height: 70vh;
+         }
+         
+         .chat-header {
+             background-color: #2a5298;
+             color: white;
+             padding: 15px;
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+         }
+         
+         .chat-header h3 {
+             margin: 0;
+             font-size: 18px;
+         }
+         
+         .close-chat {
+             background: none;
+             border: none;
+             color: white;
+             font-size: 20px;
+             cursor: pointer;
+         }
+         
+         .chat-messages {
+             flex: 1;
+             padding: 15px;
+             overflow-y: auto;
+             display: flex;
+             flex-direction: column;
+             gap: 10px;
+         }
+         
+         .message {
+             max-width: 80%;
+             padding: 10px 15px;
+             border-radius: 18px;
+             font-size: 14px;
+         }
+         
+         .received {
+             align-self: flex-start;
+             background-color: #f0f0f0;
+             color: #333;
+         }
+         
+         .sent {
+             align-self: flex-end;
+             background-color: #2a5298;
+             color: white;
+         }
+         
+         .chat-input {
+             display: flex;
+             padding: 10px;
+             border-top: 1px solid #eee;
+         }
+         
+         .chat-input input {
+             flex: 1;
+             padding: 10px;
+             border: 1px solid #ddd;
+             border-radius: 20px;
+             outline: none;
+         }
+         
+         .send-button {
+             background-color: #2a5298;
+             color: white;
+             border: none;
+             border-radius: 50%;
+             width: 40px;
+             height: 40px;
+             margin-left: 10px;
+             cursor: pointer;
+         }
+         
+         .driver-status {
+             font-size: 12px;
+             margin-top: 5px;
+             display: flex;
+             align-items: center;
+         }
+         
+         .online {
+             color: #4caf50;
+         }
+         
+         .offline {
+             color: #f44336;
+         }
+         
+         .status-dot {
+             width: 8px;
+             height: 8px;
+             border-radius: 50%;
+             margin-right: 5px;
+         }
+         
+         .online .status-dot {
+             background-color: #4caf50;
+         }
+         
+         .offline .status-dot {
+             background-color: #f44336;
+         }
+     </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="image/Logo.jpeg" alt="Logo">
+            Travel Lovindra
+        </div>
+        <div class="nav-links">
+            <a href="menu-utama.html">Beranda</a>
+            <a href="katalog.html">Transportasi</a>
+            <a href="Destinasi.html">Destinasi</a>
+            <a href="katalog-sopir.html">Sopir</a>
+            <a href="riwayat-transaksi.html">Riwayat Transaksi</a>
+            <a href="index.html">Logout</a>
+        </div>
+    </nav>
+
+    <header class="catalog-header">
+        <h1>Katalog Sopir Profesional</h1>
+        <p>Kenyamanan perjalanan Anda didukung oleh sopir-sopir berpengalaman dan berkualitas</p>
+    </header>
+
+    <section class="filter-section">
+        <button class="filter-button active" data-filter="all">Semua</button>
+        <button class="filter-button" data-filter="solo">Solo</button>
+        <button class="filter-button" data-filter="malang">Malang</button>
+        <button class="filter-button" data-filter="bali">Bali</button>
+        <button class="filter-button" data-filter="yogyakarta">Yogyakarta</button>
+        <button class="filter-button" data-filter="bandung">Bandung</button>
+        <button class="filter-button" data-filter="5star">Rating 5 Bintang</button>
+    </section>
+
+    <section class="catalog-container">
+        <!-- SOLO (2 drivers) -->
+        <div class="driver-card" data-categories="solo 5star">
+            <div class="image-container">
+                <img src="image/yeonjun.jpeg" alt="Yeonjun">
+                <div class="chat-icon" data-driver="Yeonjun" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Yeonjun</h3>
+                <div class="driver-rating">★★★★★ (4.9)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 12 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Inggris
+                    </div>
+                    <div class="spec">
+                        Keahlian: Rute wisata Solo dan sekitarnya
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Solo</span>
+                    <span class="specialty-tag">Surakarta</span>
+                    <span class="specialty-tag">Sangiran</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="driver-card" data-categories="solo">
+            <div class="image-container">
+                <img src="image/haruto.jpeg" alt="Haruto">
+                <div class="chat-icon" data-driver="Haruto" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Haruto</h3>
+                <div class="driver-rating">★★★★☆ (4.7)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 8 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata budaya dan sejarah Solo
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Solo</span>
+                    <span class="specialty-tag">Keraton</span>
+                    <span class="specialty-tag">Budaya</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <!-- MALANG (3 drivers) -->
+        <div class="driver-card" data-categories="malang 5star">
+            <div class="image-container">
+                <img src="image/taehyung.jpeg" alt="Taehyung">
+                <div class="chat-icon" data-driver="Taehyung" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Taehyung</h3>
+                <div class="driver-rating">★★★★★ (4.9)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 10 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Inggris
+                    </div>
+                    <div class="spec">
+                        Keahlian: Rute pegunungan dan wisata alam
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Malang</span>
+                    <span class="specialty-tag">Bromo</span>
+                    <span class="specialty-tag">Batu</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="driver-card" data-categories="malang">
+            <div class="image-container">
+                <img src="image/hanbin.jpeg" alt="Hanbin">
+                <div class="chat-icon" data-driver="Hanbin" data-status="offline">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Hanbin</h3>
+                <div class="driver-rating">★★★★☆ (4.6)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 7 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata kuliner dan kota Malang
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Malang</span>
+                    <span class="specialty-tag">Kuliner</span>
+                    <span class="specialty-tag">Kota</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="driver-card" data-categories="malang">
+            <div class="image-container">
+                <img src="image/zhang hao.jpeg" alt="Zhang Hao">
+                <div class="chat-icon" data-driver="Zhang Hao" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Zhang Hao</h3>
+                <div class="driver-rating">★★★★☆ (4.5)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 9 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Jawa
+                    </div>
+                    <div class="spec">
+                        Keahlian: Jalur pendakian dan wisata ekstrim
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Malang</span>
+                    <span class="specialty-tag">Pendakian</span>
+                    <span class="specialty-tag">Semeru</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <!-- BALI (5 drivers) -->
+        <div class="driver-card" data-categories="bali 5star">
+            <div class="image-container">
+                <img src="image/jeno.jpeg" alt="Jeno">
+                <div class="chat-icon" data-driver="Jeno" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Jeno</h3>
+                <div class="driver-rating">★★★★★ (5.0)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 15 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Inggris, Jepang
+                    </div>
+                    <div class="spec">
+                        Keahlian: Tempat wisata tersembunyi Bali
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Bali</span>
+                    <span class="specialty-tag">Nusa Penida</span>
+                    <span class="specialty-tag">Hidden Gems</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="driver-card" data-categories="bali 5star">
+            <div class="image-container">
+                <img src="image/jaemin.jpeg" alt="Jaemin">
+                <div class="chat-icon" data-driver="Jaemin" data-status="offline">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Jaemin</h3>
+                <div class="driver-rating">★★★★★ (4.9)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 14 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Inggris
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata budaya dan adat Bali
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Bali</span>
+                    <span class="specialty-tag">Budaya</span>
+                    <span class="specialty-tag">Upacara Adat</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="driver-card" data-categories="bali">
+            <div class="image-container">
+                <img src="image/jisung.jpeg" alt="Jisung">
+                <div class="chat-icon" data-driver="Jisung" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Jisung</h3>
+                <div class="driver-rating">★★★★☆ (4.8)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 11 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Inggris, Mandarin
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata pantai dan aktivitas air
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Bali</span>
+                    <span class="specialty-tag">Pantai</span>
+                    <span class="specialty-tag">Watersport</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="driver-card" data-categories="bali">
+            <div class="image-container">
+                <img src="image/jake.jpeg" alt="Jake">
+                <div class="chat-icon" data-driver="Jake" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Jake</h3>
+                <div class="driver-rating">★★★★☆ (4.7)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 9 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Inggris
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata kuliner dan belanja
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Bali</span>
+                    <span class="specialty-tag">Kuliner</span>
+                    <span class="specialty-tag">Shopping</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="driver-card" data-categories="bali">
+            <div class="image-container">
+                <img src="image/jiwoong.jpeg" alt="Jiwoong">
+                <div class="chat-icon" data-driver="Jiwoong" data-status="offline">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Jiwoong</h3>
+                <div class="driver-rating">★★★★☆ (4.6)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 8 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Inggris
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata alam dan air terjun
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Bali</span>
+                    <span class="specialty-tag">Air Terjun</span>
+                    <span class="specialty-tag">Alam</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <!-- YOGYAKARTA (3 drivers) -->
+        <div class="driver-card" data-categories="yogyakarta 5star">
+            <div class="image-container">
+                <img src="image/sunghoon.jpeg" alt="Sunghoon">
+                <div class="chat-icon" data-driver="Sunghoon" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Sunghoon</h3>
+                <div class="driver-rating">★★★★★ (4.9)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 13 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Inggris, Belanda
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata sejarah dan candi
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Yogyakarta</span>
+                    <span class="specialty-tag">Borobudur</span>
+                    <span class="specialty-tag">Prambanan</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="driver-card" data-categories="yogyakarta">
+            <div class="image-container">
+                <img src="image/ricky.jpeg" alt="Ricky">
+                <div class="chat-icon" data-driver="Ricky" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Ricky</h3>
+                <div class="driver-rating">★★★★☆ (4.8)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 10 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Inggris
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata budaya dan kesenian
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Yogyakarta</span>
+                    <span class="specialty-tag">Keraton</span>
+                    <span class="specialty-tag">Malioboro</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="driver-card" data-categories="yogyakarta">
+            <div class="image-container">
+                <img src="image/gunwook.jpeg" alt="Gunwook">
+                <div class="chat-icon" data-driver="Gunwook" data-status="offline">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Gunwook</h3>
+                <div class="driver-rating">★★★★☆ (4.7)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 9 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Jawa
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata alam dan pantai
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Yogyakarta</span>
+                    <span class="specialty-tag">Pantai Parangtritis</span>
+                    <span class="specialty-tag">Gunung Merapi</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <!-- BANDUNG (2 drivers) -->
+        <div class="driver-card" data-categories="bandung 5star">
+            <div class="image-container">
+                <img src="image/renjun.jpeg" alt="Renjun">
+                <div class="chat-icon" data-driver="Renjun" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Renjun</h3>
+                <div class="driver-rating">★★★★★ (4.9)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 11 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Inggris
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata kota dan kuliner
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Bandung</span>
+                    <span class="specialty-tag">Kuliner</span>
+                    <span class="specialty-tag">Factory Outlet</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+        
+        <div class="driver-card" data-categories="bandung">
+            <div class="image-container">
+                <img src="image/jungwon.jpeg" alt="Jungwon">
+                <div class="chat-icon" data-driver="Jungwon" data-status="online">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+            </div>
+            <div class="content">
+                <h3>jungwon</h3>
+                <div class="driver-rating">★★★★☆ (4.8)</div>
+                <div class="specs">
+                    <div class="spec">
+                        Pengalaman: 9 tahun
+                    </div>
+                    <div class="spec">
+                        Bahasa: Indonesia, Sunda
+                    </div>
+                    <div class="spec">
+                        Keahlian: Wisata alam dan pegunungan
+                    </div>
+                </div>
+                <div class="driver-specialties">
+                    <span class="specialty-tag">Bandung</span>
+                    <span class="specialty-tag">Tangkuban Perahu</span>
+                    <span class="specialty-tag">Lembang</span>
+                </div>
+                <button class="book-button">Pesan Sekarang</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Modal -->
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3 id="chatDriverName">Chat dengan Sopir</h3>
+                <div class="driver-status" id="driverStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Online</span>
+                </div>
+                <button class="close-chat" id="closeChat">&times;</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Ketik pesan Anda...">
+                <button class="send-button" id="sendMessage">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="logo">
+            <img src="image/Logo.jpeg" alt="Logo">
+            Travel Lovindra
+        </div>
+        <p>&copy; 2025 Travel Lovindra. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const driverCards = document.querySelectorAll('.driver-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get filter value
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Show/hide driver cards based on filter
+                    driverCards.forEach(card => {
+                        if (filterValue === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            const categories = card.getAttribute('data-categories');
+                            if (categories.includes(filterValue)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Booking functionality
+            const bookButtons = document.querySelectorAll('.book-button');
+            bookButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const driverCard = this.closest('.driver-card');
+                    const driverName = driverCard.querySelector('h3').textContent;
+                    const driverImage = driverCard.querySelector('img').src;
+                    const driverRating = driverCard.querySelector('.driver-rating').textContent;
+                    const driverExperience = driverCard.querySelector('.specs .spec:nth-child(1)').textContent.trim();
+        
+                    // Save driver info to localStorage
+                    localStorage.setItem('selectedDriver', driverName);
+                    localStorage.setItem('driverImage', driverImage);
+                    localStorage.setItem('driverRating', driverRating);
+                    localStorage.setItem('driverExperience', driverExperience);
+                    
+                    // Redirect to booking page
+                    window.location.href = 'pemesanan.html';
+                });
+            });
+            
+            // Chat functionality
+            const chatModal = document.getElementById('chatModal');
+            const chatDriverName = document.getElementById('chatDriverName');
+            const driverStatus = document.getElementById('driverStatus');
+            const chatMessages = document.getElementById('chatMessages');
+            const messageInput = document.getElementById('messageInput');
+            const sendMessage = document.getElementById('sendMessage');
+            const closeChat = document.getElementById('closeChat');
+            
+            // Sample responses for each driver
+            const driverResponses = {
+                "Yeonjun": "Halo! Saya Yeonjun, sopir profesional dengan pengalaman 12 tahun di Solo. Ada yang bisa saya bantu?",
+                "Haruto": "Selamat siang! Saya Haruto, siap membantu perjalanan wisata budaya Anda di Solo.",
+                "Taehyung": "Hai! Saya Taehyung, ahli rute pegunungan di Malang. Mau tanya apa?",
+                "Hanbin": "Maaf, saya sedang offline. Silakan tinggalkan pesan dan saya akan membalas segera.",
+                "Zhang Hao": "Halo pengunjung! Saya Zhang Hao, pakar pendakian di Malang. Ada yang ingin ditanyakan?",
+                "Jeno": "Selamat datang! Saya Jeno, akan dengan senang hati membantu Anda menemukan tempat wisata tersembunyi di Bali.",
+                "Jaemin": "Maaf, saya sedang tidak tersedia. Silakan hubungi sopir lain atau tinggalkan pesan.",
+                "Jisung": "Hai! Saya Jisung, spesialis wisata pantai di Bali. Ada yang bisa saya bantu?",
+                "Jake": "Halo! Saya Jake, bisa membantu rekomendasi tempat kuliner dan belanja di Bali.",
+                "Jiwoong": "Saya sedang offline. Untuk pertanyaan tentang wisata alam Bali, bisa hubungi saya besok.",
+                "Sunghoon": "Selamat datang! Saya Sunghoon, pemandu wisata sejarah di Yogyakarta. Ada yang bisa saya jelaskan?",
+                "Ricky": "Halo! Saya Ricky, siap membantu perjalanan budaya Anda di Yogyakarta.",
+                "Gunwook": "Saat ini saya offline. Untuk pertanyaan tentang wisata alam Yogyakarta, bisa hubungi nanti.",
+                "Renjun": "Hai pengunjung! Saya Renjun, ahli wisata kuliner di Bandung. Ada yang mau ditanyakan
