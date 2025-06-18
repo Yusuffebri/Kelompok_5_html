@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin Transportasi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2a5298;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+        }
+
+        .menu-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .menu-item {
+            flex: 1;
+            min-width: 200px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item h2 {
+            color: #2a5298;
+            margin-top: 0;
+        }
+
+        .menu-item i {
+            font-size: 48px;
+            color: #2a5298;
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        button[type="submit"],
+        .back-btn {
+            padding: 10px 20px;
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover,
+        .back-btn:hover {
+            background-color: #1e3c72;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .error-message {
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        /* Ikon menu */
+        .fas {
+            display: block;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <h1>Dashboard Administrator</h1>
+        <p>Kelola data transportasi, destinasi, dan sopir</p>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="menu-container">
+            <div class="menu-item" id="menuTransportasi">
+                <i class="fas fa-bus"></i>
+                <div class="nav-links">
+                    <a href="admintransportasi.php">
+                        <h2>Admin Transportasi</h2>
+                    </a>
+                    <p>Kelola data kendaraan dan armada</p>
+                </div>
+            </div>
+            <div class="menu-item" id="menuDestinasi">
+                <i class="fas fa-map-marked-alt"></i>
+                <div class="nav-links">
+                    <a href="admindestinasi.php">
+                        <h2>Admin Destinasi</h2>
+                    </a>
+                    <p>Kelola data tujuan wisata</p>
+                </div>
+            </div>
+            <div class="menu-item" id="menuSopir">
+                <i class="fas fa-user-tie"></i>
+                <div class="nav-links">
+                    <a href="adminsopir.php">
+                        <h2>Admin Sopir</h2>
+                    </a>
+                    <p>Kelola data pengemudi</p>
+                </div>
+            </div>
+            <div class="menu-item" id="menuKembali">
+                <i class="fas fa-home"></i>
+                <div class="nav-links">
+                    <a href="menu_utama.php">
+                        <h2>Kembali</h2>
+                    </a>
+                    <p>Kembali ke halaman utama</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Setiap section akan ditampilkan sesuai menu yang dipilih -->
+
+        <!-- Section Transportasi -->
+        <div class="content-section hidden" id="sectionTransportasi">
+            <h2>Kelola Data Transportasi</h2>
+            <div id="successMessageTransport" class="success-message">Berhasil menyimpan data!</div>
+            <div id="errorMessageTransport" class="error-message">Gagal menyimpan data!</div>
+
+            <!-- Form ini akan mengarah ke admintransportasi.php -->
+            <form action="admintransportasi.php" method="POST">
+                <input type="hidden" id="transportId" name="transportId">
+                <input type="text" id="namaKendaraan" name="namaKendaraan" placeholder="Nama Kendaraan" required>
+                <input type="text" id="kapasitas" name="kapasitas" placeholder="Kapasitas (cth: 7 Orang)" required>
+                <input type="text" id="bagasi" name="bagasi" placeholder="Bagasi (cth: Cukup untuk 4 koper)" required>
+                <input type="text" id="ac" name="ac" placeholder="AC (cth: Aktif)" required>
+                <input type="text" id="harga" name="harga" placeholder="Harga (cth: Rp 500.000/hari)" required>
+                <input type="text" id="gambar" name="gambar" placeholder="Path Gambar (cth: image/avanza.jpg)" required>
+                <button type="submit" id="submitTransportasi">Simpan Data</button>
+                <button type="button" id="cancelEditTransport" style="display:none; background-color: #f44336;">Batal
+                    Edit</button>
+            </form>
+
+            <h3>Daftar Kendaraan</h3>
+            <table id="tabelTransportasi">
+                <thead>
+                    <tr>
+                        <th>Nama Kendaraan</th>
+                        <th>Kapasitas</th>
+                        <th>Bagasi</th>
+                        <th>AC</th>
+                        <th>Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="daftarTransportasi">
+                    <!-- Data akan diisi oleh PHP atau AJAX dari admintransportasi.php -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section Destinasi -->
+        <div class="content-section hidden" id="sectionDestinasi">
+            <h2>Kelola Data Destinasi</h2>
+            <div id="successMessageDestinasi" class="success-message">Berhasil menyimpan data!</div>
+            <div id="errorMessageDestinasi" class="error-message">Gagal menyimpan data!</div>
+
+            <!-- Form ini akan mengarah ke admindestinasi.php -->
+            <form action="admindestinasi.php" method="POST">
+                <input type="hidden" id="destinasiId" name="destinasiId">
+                <input type="text" id="namaDestinasi" name="namaDestinasi" placeholder="Nama Destinasi" required>
+                <input type="text" id="lokasiDestinasi" name="lokasiDestinasi" placeholder="Lokasi" required>
+                <input type="text" id="deskripsiDestinasi" name="deskripsiDestinasi" placeholder="Deskripsi singkat"
+                    required>
+                <input type="text" id="hargaDestinasi" name="hargaDestinasi"
+                    placeholder="Harga tiket (cth: Rp 25.000/orang)" required>
+                <input type="text" id="gambarDestinasi" name="gambarDestinasi"
+                    placeholder="Path Gambar (cth: image/pantai.jpg)" required>
+                <button type="submit" id="submitDestinasi">Simpan Data</button>
+                <button type="button" id="cancelEditDestinasi" style="display:none; background-color: #f44336;">Batal
+                    Edit</button>
+            </form>
+
+            <h3>Daftar Destinasi</h3>
+            <table id="tabelDestinasi">
+                <thead>
+                    <tr>
+                        <th>Nama Destinasi</th>
+                        <th>Lokasi</th>
+                        <th>Deskripsi</th>
+                        <th>Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="daftarDestinasi">
+                    <!-- Data akan diisi oleh PHP atau AJAX dari admindestinasi.php -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section Sopir -->
+        <div class="content-section hidden" id="sectionSopir">
+            <h2>Kelola Data Sopir</h2>
+            <div id="successMessageSopir" class="success-message">Berhasil menyimpan data!</div>
+            <div id="errorMessageSopir" class="error-message">Gagal menyimpan data!</div>
+
+            <!-- Form ini akan mengarah ke adminsopir.php -->
+            <form action="adminsopir.php" method="POST">
+                <input type="hidden" id="sopirId" name="sopirId">
+                <input type="text" id="namaSopir" name="namaSopir" placeholder="Nama Sopir" required>
+                <input type="text" id="usiaSopir" name="usiaSopir" placeholder="Usia" required>
+                <input type="text" id="pengalamanSopir" name="pengalamanSopir" placeholder="Pengalaman (cth: 5 tahun)"
+                    required>
+                <input type="text" id="teleponSopir" name="teleponSopir" placeholder="No. Telepon" required>
+                <input type="text" id="gambarSopir" name="gambarSopir" placeholder="Path Foto (cth: image/sopir.jpg)"
+                    required>
+                <button type="submit" id="submitSopir">Simpan Data</button>
+                <button type="button" id="cancelEditSopir" style="display:none; background-color: #f44336;">Batal
+                    Edit</button>
+            </form>
+
+            <h3>Daftar Sopir</h3>
+            <table id="tabelSopir">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Usia</th>
+                        <th>Pengalaman</th>
+                        <th>No. Telepon</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="daftarSopir">
+                    <!-- Data akan diisi oleh PHP atau AJAX dari adminsopir.php -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal Konfirmasi Hapus -->
+        <div id="modalKonfirmasi" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Konfirmasi Hapus</h3>
+                <p id="pesanKonfirmasi">Apakah Anda yakin ingin menghapus data ini?</p>
+                <button id="konfirmasiHapus"
+                    style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">Hapus</button>
+                <button id="batalHapus"
+                    style="background-color: #ccc; color: black; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi navigasi menu
+        function setupMenuNavigation() {
+            // Menampilkan section sesuai menu yang diklik
+            document.getElementById('menuTransportasi').addEventListener('click', function () {
+                // Ketika klik menu, arahkan ke halaman PHP yang sesuai
+                window.location.href = "admintransportasi.php";
+            });
+
+            document.getElementById('menuDestinasi').addEventListener('click', function () {
+                // Ketika klik menu, arahkan ke halaman PHP yang sesuai
+                window.location.href = "admindestinasi.php";
+            });
+
+            document.getElementById('menuSopir').addEventListener('click', function () {
+                // Ketika klik menu, arahkan ke halaman PHP yang sesuai
+                window.location.href = "adminsopir.php";
+            });
+
+            document.getElementById('menuKembali').addEventListener('click', function () {
+                // Redirect ke halaman utama
+                window.location.href = "menu_utama.php";
+            });
+        }
+
+        // Modal Konfirmasi Hapus (tetap di sini jika modal ini digunakan untuk konfirmasi umum,
+        // namun fungsi delete di setiap halaman PHP akan menangani penghapusan sebenarnya)
+        let deleteTargetType = '';
+        let deleteTargetIndex = -1;
+
+        function showDeleteConfirmation(type, index) {
+            deleteTargetType = type;
+            deleteTargetIndex = index;
+            document.getElementById('pesanKonfirmasi').textContent = `Apakah Anda yakin ingin menghapus data ${type} ini?`;
+            document.getElementById('modalKonfirmasi').style.display = 'block';
+        }
+
+        document.getElementById('konfirmasiHapus').addEventListener('click', function () {
+            // Dalam implementasi PHP, ini akan memicu submit form atau request AJAX ke halaman PHP
+            // yang akan menangani penghapusan data di database.
+            // Untuk saat ini, ini hanya placeholder.
+            alert(`Simulasi: Menghapus data ${deleteTargetType} dengan index ${deleteTargetIndex}`);
+            document.getElementById('modalKonfirmasi').style.display = 'none';
+            // Anda perlu menambahkan logika redirect atau AJAX di sini setelah penghapusan berhasil di PHP
+        });
+
+        document.getElementById('batalHapus').addEventListener('click', function () {
+            document.getElementById('modalKonfirmasi').style.display = 'none';
+        });
+
+        document.querySelector('.close').addEventListener('click', function () {
+            document.getElementById('modalKonfirmasi').style.display = 'none';
+        });
+
+
+        // Inisialisasi saat DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function () {
+            setupMenuNavigation();
+            // Karena sekarang navigasi mengarah ke file PHP terpisah,
+            // tidak perlu lagi ada `load...Data()` di sini secara default
+            // kecuali Anda mengimplementasikan AJAX untuk memuat data tanpa refresh halaman.
+        });
+    </script>
+</body>
+
+</html>

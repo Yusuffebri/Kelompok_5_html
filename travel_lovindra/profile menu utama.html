@@ -1,0 +1,87 @@
+<?php
+// Koneksi ke database
+$host = "localhost";
+$user = "root"; // ganti sesuai user DB kamu
+$password = ""; // ganti jika ada password
+$dbname = "travel_lovindra"; // nama database kamu
+
+$conn = new mysqli($host, $user, $password, $dbname);
+
+// Cek koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Ambil data tentang kami
+$sql = "SELECT * FROM tentang_kami ORDER BY id DESC LIMIT 1";
+$result = $conn->query($sql);
+
+// Ambil data jika ada
+$data = $result->fetch_assoc();
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tentang Kami - Travel Lovindra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 40px;
+        }
+
+        .container {
+            background: #fff;
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2a5298;
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <?php if ($data): ?>
+        <h1>
+            <?= htmlspecialchars($data['judul']) ?>
+        </h1>
+        <p>
+            <?= nl2br(htmlspecialchars($data['deskripsi_1'])) ?>
+        </p>
+        <p>
+            <?= nl2br(htmlspecialchars($data['deskripsi_2'])) ?>
+        </p>
+        <p>
+            <?= nl2br(htmlspecialchars($data['deskripsi_3'])) ?>
+        </p>
+        <?php else: ?>
+        <h1>Data tidak ditemukan</h1>
+        <p>Silakan tambahkan data terlebih dahulu di database.</p>
+        <?php endif; ?>
+    </div>
+</body>
+
+</html>
+
+<?php
+$conn->close();
+?>

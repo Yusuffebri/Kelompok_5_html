@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paket Wisata Solo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #2a5298;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            text-align: left;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #2a5298;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="image/solo.jpeg" alt="Solo" class="header-img">
+        <h1>Paket Wisata Solo</h1>
+        <h2>Harga: Rp 3.200.000/orang</h2>
+        <p>Menyusuri keindahan budaya dan kuliner khas Solo.</p>
+        <h2>Destinasi Wisata:</h2>
+        <ul>
+            <li>Pura Mangkunegaran</li>
+            <li>Kampung Batik Kauman</li>
+            <li>Pasar Gede</li>
+            <li>Taman Balekambang</li>
+            <li>Solo Safari</li>
+        </ul>
+        <h2>Fasilitas yang Didapat:</h2>
+        <ul>
+            <li>Hotel bintang 4 selama 2 malam</li>
+            <li>Makan pagi, siang, dan malam</li>
+            <li>Transportasi dan antar-jemput</li>
+            <li>Tiket masuk ke destinasi wisata</li>
+            <li>Pemandu wisata lokal</li>
+        </ul>
+        <a href="pemesanan.php" class="back-button">Pesan Sekarang</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mendapatkan tombol "Pesan Sekarang"
+            const bookButton = document.querySelector('.back-button');
+
+            // Menambahkan event listener untuk klik
+            bookButton.addEventListener('click', function (e) {
+                // Mencegah navigasi default
+                e.preventDefault();
+
+                // Mendapatkan informasi paket
+                const packageTitle = document.querySelector('h1').textContent;
+                const packagePrice = document.querySelector('h2').textContent;
+                const packageImage = document.querySelector('.header-img').src;
+
+                // Menyimpan di localStorage
+                localStorage.setItem('selectedPackage', packageTitle);
+                localStorage.setItem('packagePrice', packagePrice);
+                localStorage.setItem('packageImage', packageImage);
+
+                // Navigasi ke halaman pemesanan
+                window.location.href = 'pemesanan.php';
+            });
+        });
+    </script>
+</body>
+
+</html>
